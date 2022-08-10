@@ -1,0 +1,20 @@
+# useful when you choose to depend on an unhealthy dependency.
+ignore-failures:
+  rust:
+    - colored
+
+rules-config:
+  no-recent-package-release:
+    warn-at-months: 12
+    # fail-at-months: 24 omitted to use the default
+  no-recent-commit:
+    warn-at-months: 12
+    fail-at-months: 24
+  few-yearly-commits: disabled # disable this one entirely
+
+
+  # these defaults are fine, so we don't change them
+
+  # repository-archived: fail
+  # repository-is-fork: warn
+  # package-deprecated: fail

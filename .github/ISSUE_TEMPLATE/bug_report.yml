@@ -1,0 +1,88 @@
+name: 🛠 Bug report
+description:
+  Create a report to help us improve scud by reporting undesirable behavior
+title: Good bug title tells us about precise symptom, not about the root cause.
+labels: [bug]
+assignees: [pulanski]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for contributing by creating an issue! ❤️
+  - type: checkboxes
+    attributes:
+      label: Duplicates
+      description: |
+        Please [search the history](https://github.com/o2sh/onefetch/issues) to see if an issue already exists for the same problem.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        A clear and concise description of what the bug is
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Run ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current behavior
+      description: What happens actually so you think this is a bug.
+    validations:
+      required: true
+  - type: textarea
+    id: desired-behavior
+    attributes:
+      label: Desired behavior
+      description: |
+        A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots (optional)
+      description: |
+        If applicable, add screenshots to help explain your problem.
+  - type: textarea
+    id: minimal-reproduction
+    attributes:
+      label: Minimal Reproduction (optional)
+      description: |
+        Please provide a link to a minimal reproduction of the bug
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        Please provide the environment you discovered this bug in (run `scud healthcheck`)
+      placeholder: |
+        Scud v0.8.0 healthcheck
+        This command is intended to ensure that the system is setup for usage with the various features of scud.
+
+        Version Control Systems: (Git, Mercurial, and Breezy are currently supported)
+
+        Git:
+
+        git version 2.32.1 (Apple Git-133)
+
+        Mercurial:
+    validations:
+      required: false
+
+  - type: textarea
+    id: other
+    attributes:
+      label: Anything else?

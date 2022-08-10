@@ -1,0 +1,38 @@
+name: 'Feature Request'
+description: Suggest a feature for this CLI
+labels: [enhancement]
+assignees: [pulanski]
+
+body:
+  - type: dropdown
+    id: domain
+    attributes:
+      label:
+        Which area of scud's functionality is relevant to the feature request?
+      options:
+        - source_control_providers (GitHub, GitLab)
+        - version_control_systems (Git, Mercurial, Breezy)
+        - documentation
+        - other
+      multiple: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives-considered
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: true
