@@ -1,16 +1,12 @@
-use std::{
-    time::SystemTime,
-};
+use std::time::SystemTime;
 
 use clap::Parser;
 
 use scud_core::{
     cli::Cli,
-    process_commands::process_args,
     helpers::check_version,
+    process_commands::process_args,
 };
-
-// TODO View open issues in current repository
 
 fn main() {
     let start_time = SystemTime::now();

@@ -22,7 +22,11 @@ pub fn execute_commit_git() {
         .output()
     {
         Ok(output) => {
-            println!("{}", String::from_utf8_lossy(&output.stdout).to_string())
+            let stdout = String::from_utf8_lossy(&output.stdout);
+
+            // If the commit was successful, print the output to the user
+            println!("\n");
+            // println!("{}", String::from_utf8_lossy(&output.stdout).to_string())
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "git commit failed",

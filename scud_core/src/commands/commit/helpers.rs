@@ -1,12 +1,26 @@
-use std::process::{exit, Command};
+use std::process::{
+    exit,
+    Command,
+};
 
 use colored::Colorize;
-use dialoguer::{theme::ColorfulTheme, Confirm, FuzzySelect, Input};
+use dialoguer::{
+    theme::ColorfulTheme,
+    Confirm,
+    FuzzySelect,
+    Input,
+};
 use indicatif::ProgressBar;
 
 use crate::{
-    commands::commit::{commit::CommitMessageFormat, logging::log_commit_message},
-    diagnostics::{log_diagnostic, DiagnosticKind},
+    commands::commit::{
+        commit::CommitMessageFormat,
+        logging::log_commit_message,
+    },
+    diagnostics::{
+        log_diagnostic,
+        DiagnosticKind,
+    },
     logging::helpers::bright_yellow_backtick,
 };
 
@@ -31,12 +45,12 @@ pub fn process_commit_message() -> String {
                 commit_message = commit_standard_none();
             }
             CommitMessageFormat::Unknown => {
-                log_diagnostic(
-                    DiagnosticKind::Error {
-                        subject: "Invalid commit message format",
-                        body: "Unknown selection for commit message format. Valid formats include Conventional Commit Specification, Angular Commit Specification, or none"
-                    }
-                );
+                log_diagnostic(DiagnosticKind::Error {
+                    subject: "Invalid commit message format",
+                    body:    "Unknown selection for commit message format. Valid \
+                              formats include Conventional Commit Specification, \
+                              Angular Commit Specification, or none",
+                });
             }
         }
 
@@ -71,7 +85,10 @@ pub fn process_commit_message() -> String {
 /////////////////////////////////////////////////////
 
 pub fn commit_conventional_standard() -> String {
-    let pb = ProgressBar::new(5);
+    let pb = ProgressBar::new(6);
+
+    pb.inc(1);
+    pb.message();
 
     let commit_type = get_commit_type();
 
@@ -144,7 +161,8 @@ pub fn get_commit_message_format() -> CommitMessageFormat {
     let commit_message_formatting_options = &[
         format!(
             "{}{}",
-            "Conventional Commit Standard", "  (https://www.conventionalcommits.org/en/v1.0.0/)"
+            "Conventional Commit Standard",
+            "  (https://www.conventionalcommits.org/en/v1.0.0/)"
         ),
         format!(
             "{}{}",
@@ -157,16 +175,17 @@ pub fn get_commit_message_format() -> CommitMessageFormat {
         ),
     ];
 
-    let selected_commit_message_format = FuzzySelect::with_theme(&ColorfulTheme::default())
-        .with_prompt(format!(
-            "{}{}",
-            "Select a ".bright_yellow().italic(),
-            "commit message format".yellow().italic()
-        ))
-        .default(0)
-        .items(&commit_message_formatting_options[..])
-        .interact()
-        .unwrap();
+    let selected_commit_message_format =
+        FuzzySelect::with_theme(&ColorfulTheme::default())
+            .with_prompt(format!(
+                "{}{}",
+                "Select a ".bright_yellow().italic(),
+                "commit message format".yellow().italic()
+            ))
+            .default(0)
+            .items(&commit_message_formatting_options[..])
+            .interact()
+            .unwrap();
 
     clearscreen::clear().expect("failed to clear screen");
 
@@ -175,12 +194,12 @@ pub fn get_commit_message_format() -> CommitMessageFormat {
         1 => CommitMessageFormat::Angular,
         2 => CommitMessageFormat::None,
         _ => {
-            log_diagnostic(
-                DiagnosticKind::Error {
-                    subject: "Invalid commit message format",
-                    body: "Unknown selection for commit message format. Valid formats include Conventional Commit Specification, Angular Commit Specification, or none"
-                },
-            );
+            log_diagnostic(DiagnosticKind::Error {
+                subject: "Invalid commit message format",
+                body:    "Unknown selection for commit message format. Valid \
+                          formats include Conventional Commit Specification, \
+                          Angular Commit Specification, or none",
+            });
             CommitMessageFormat::None
         }
     }
@@ -189,7 +208,8 @@ pub fn get_commit_message_format() -> CommitMessageFormat {
 pub fn get_remaining_subject_length(commit_type: &str, scope: &str) -> usize {
     let max_subject_length = 100;
 
-    let mut remaining_subject_length = max_subject_length - scope.len() - commit_type.len() - 2;
+    let mut remaining_subject_length =
+        max_subject_length - scope.len() - commit_type.len() - 2;
 
     if scope.len() > 0 {
         remaining_subject_length -= 2;
@@ -200,24 +220,27 @@ pub fn get_remaining_subject_length(commit_type: &str, scope: &str) -> usize {
 
 pub fn get_commit_type() -> String {
     let commit_type_options = &[
-      "feat:  A new feature",
-      "fix:  A bug fix",
-      "docs:  Documentation only changes",
-      "style:  Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
-      "refactor:  A code change that neither fixes a bug nor adds a feature",
-      "perf:  A code change that improves performance",
-      "test:  Adding missing tests or correcting existing tests",
-      "build:  Changes that affect the build system or external dependencies (example scons, gulp, grunt, broccoli, npm, etc.)",
-      "ci:  Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs, etc.)",
-      "chore:  Other changes that don't modify src/bin files",
-      "revert:  Reverts a previous commit",
+        "feat:  A new feature",
+        "fix:  A bug fix",
+        "docs:  Documentation only changes",
+        "style:  Changes that do not affect the meaning of the code (white-space, \
+         formatting, missing semi-colons, etc)",
+        "refactor:  A code change that neither fixes a bug nor adds a feature",
+        "perf:  A code change that improves performance",
+        "test:  Adding missing tests or correcting existing tests",
+        "build:  Changes that affect the build system or external dependencies \
+         (example scons, gulp, grunt, broccoli, npm, etc.)",
+        "ci:  Changes to our CI configuration files and scripts (example scopes: \
+         Travis, Circle, BrowserStack, SauceLabs, etc.)",
+        "chore:  Other changes that don't modify src/bin files",
+        "revert:  Reverts a previous commit",
     ];
 
     // TODO log_commit_config(commit_config)
     // on each clearscreen::clear()
-    // Partially generated commit message formatted following the Conventional Commit Standard
-    // Generated commit message following the Angular Commit Standard
-    // Generated commit message without formatting
+    // Partially generated commit message formatted following the Conventional
+    // Commit Standard Generated commit message following the Angular Commit
+    // Standard Generated commit message without formatting
 
     let selected_commit_type = FuzzySelect::with_theme(&ColorfulTheme::default())
         .with_prompt(format!(
@@ -244,7 +267,7 @@ pub fn get_scope() -> String {
     let scope = Input::new()
         .with_prompt(format!(
             "\n\n{}{}{}{}:{}",
-            "What is ".bright_yellow().italic(),
+            "What is the ".bright_yellow().italic(),
             "scope".yellow().italic(),
             " of this change ".bright_yellow().italic(),
             "(e.g. component or file name)".green().italic(),
@@ -260,40 +283,27 @@ pub fn get_scope() -> String {
 }
 
 pub fn get_subject(commit_type: &str, scope: &str) -> String {
-    let remaining_subject_length = get_remaining_subject_length(&commit_type, &scope);
+    let remaining_subject_length =
+        get_remaining_subject_length(&commit_type, &scope);
 
     let subject: String = Input::new()
-        .with_prompt(
-        format!(
-            "\n\n{}{}{}{}{}{}",
-            "Write a "
-                .bright_yellow()
-                .italic(),
-            "short, imperative tense description"
-                .yellow()
-                .italic(),
-            " of the change "
-                .bright_yellow()
-                .italic(),
-            "(max "
-                .black()
-                .italic(),
-            remaining_subject_length
-                .to_string()
-                .black()
-                .italic(),
-            " chars)"
-                .black()
-                .italic()
-        )
-        )
+        .with_prompt(format!(
+            "\n\n{} {} {} {}{}{}",
+            "Write a".bright_yellow().italic(),
+            "short, imperative tense description".yellow().italic(),
+            "of the change".bright_yellow().italic(),
+            "(max ".black().italic(),
+            remaining_subject_length.to_string().black().italic(),
+            " chars)".black().italic()
+        ))
         .validate_with(|input: &String| -> Result<(), &str> {
             if input.len() <= remaining_subject_length {
                 Ok(())
             } else {
                 Err(
                     // TODO: look into refactoring using thiserror
-                    "Provided subject exceeds character limit, please specify a subject with less than the maximum character limit"
+                    "Provided subject exceeds character limit, please specify a \
+                     subject with less than the maximum character limit",
                 )
             }
         })
@@ -407,7 +417,8 @@ pub fn check_for_staged_files() {
             if staged_changes.len() == 0 {
                 log_diagnostic(DiagnosticKind::Error {
                     subject: "Attempting to commit without any staged changes",
-                    body: "Please stage your changes before going through the commit process",
+                    body:    "Please stage your changes before going through the \
+                              commit process",
                 });
                 log_diagnostic(DiagnosticKind::Tip {
                     body: &format!(
@@ -416,7 +427,9 @@ pub fn check_for_staged_files() {
                         bright_yellow_backtick(),
                         "scud stage".green().italic(),
                         bright_yellow_backtick(),
-                        "to stage all unstaged changes and untracked files for commit".yellow(),
+                        "to stage all unstaged changes and untracked files for \
+                         commit"
+                            .yellow(),
                     ),
                 });
                 exit(1);
@@ -424,7 +437,7 @@ pub fn check_for_staged_files() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting staged changes (git)",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 }

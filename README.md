@@ -39,10 +39,9 @@
     <a href="https://prettier.io/">
         <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?labelColor=425C60&color=CFD6DD&">
     </a>
-    <a href="https://crates.io/crates/scud/">
+    <!-- <a href="https://crates.io/crates/scud/">
         <img src="https://img.shields.io/tokei/lines/github/pulanski/scud?style=flat&labelColor=425C60&color=CFD6DD&">
-    </a>
-    <!-- ![Lines of code](https://img.shields.io/tokei/lines/github/pulanski/scud?style=plastic) -->
+    </a> -->
 </p>
 
 # 💨 scud
@@ -139,12 +138,16 @@ Scud is currently a work in progress, so its complete functionality is not yet f
 
 Detailed below is a list of the current features and their status, as well as the roadmap for the future.
 
--   [ ] stage
-    -   [ ] Git
+-   [x] stage
+    -   [x] Git
     -   [ ] Mercurial
     -   [ ] Breezy
     -   [x] Under the hood info
--   [ ] unstage
+-   [x] unstage
+    -   [x] Git
+    -   [ ] Mercurial
+    -   [ ] Breezy
+    -   [ ] Under the hood info
 -   [x] commit
     -   [x] Git
     -   [ ] Mercurial

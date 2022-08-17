@@ -49,10 +49,10 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
 
             println!(
                 "{}{}{}{} {}{}{}\n\n{}\n",
-                " Scud ".bright_yellow().on_yellow(),
-                "v".bright_yellow().italic().on_yellow(),
-                VERSION.bright_yellow().italic().on_yellow(),
-                " ".bright_yellow().italic().on_yellow(),
+                " Scud ".black().on_yellow(),
+                "v".black().italic().on_yellow(),
+                VERSION.black().italic().on_yellow(),
+                " ".black().italic().on_yellow(),
                 " ".on_bright_red(),
                 command.to_string().to_uppercase().black().on_bright_red(),
                 " COMMAND ".black().on_bright_red(),
@@ -62,7 +62,7 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
         DiagnosticKind::Error { subject, body } => {
             println!(
                 "\n{} {}\n\n{}\n\n{}{}\n",
-                " ERROR ".on_red(),
+                " ERROR ".black().on_red(),
                 subject.to_string().red(),
                 body.to_string().italic(),
                 "For more information, please see the scud documentation at ".bright_yellow(),
