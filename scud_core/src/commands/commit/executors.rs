@@ -1,8 +1,14 @@
 use std::process::Command;
 
 use crate::{
-    commands::commit::helpers::{process_commit_message,check_for_staged_files},
-    diagnostics::{log_diagnostic, DiagnosticKind},
+    commands::commit::helpers::{
+        check_for_staged_files,
+        process_commit_message,
+    },
+    diagnostics::{
+        log_diagnostic,
+        DiagnosticKind,
+    },
 };
 
 //////////////////////////////////////////////////////////
@@ -10,6 +16,8 @@ use crate::{
 // underlying VCS implementations of the commit command //
 //////////////////////////////////////////////////////////
 
+/// Checks for staged files, processes the commit message, and then executes
+/// the `git commit` command
 pub fn execute_commit_git() {
     check_for_staged_files();
 
@@ -26,11 +34,12 @@ pub fn execute_commit_git() {
 
             // If the commit was successful, print the output to the user
             println!("\n");
-            // println!("{}", String::from_utf8_lossy(&output.stdout).to_string())
+            // println!("{}",
+            // String::from_utf8_lossy(&output.stdout).to_string())
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "git commit failed",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 }

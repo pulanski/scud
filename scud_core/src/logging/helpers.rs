@@ -1,6 +1,6 @@
 use colored::{
     ColoredString,
-    Colorize
+    Colorize,
 };
 
 ////////////////////////////////////////
@@ -10,38 +10,37 @@ use colored::{
 ////////////////////////////////////////
 
 pub fn bright_yellow_backtick() -> ColoredString {
-    "`"
-        .bright_yellow()
+    "`".bright_yellow()
+}
+
+pub fn yellow_backtick() -> ColoredString {
+    "`".yellow()
 }
 
 pub fn black_italic_quote() -> ColoredString {
-    "\""
-        .black()
-        .italic()
+    "\"".black().italic()
 }
 
 pub fn black_period() -> ColoredString {
-    "."
-        .black()
+    ".".black()
+}
+
+pub fn black_comma() -> ColoredString {
+    ",".black()
 }
 
 pub fn black_colon() -> ColoredString {
-    ":"
-        .black()
+    ":".black()
 }
 
 pub fn black_open_paren() -> ColoredString {
-    "("
-        .black()
+    "(".black()
 }
 
 pub fn black_close_paren() -> ColoredString {
-    ")"
-        .black()
+    ")".black()
 }
 
 pub fn black_italic_implies() -> ColoredString {
-    "=>"
-        .black()
-        .italic()
+    "=>".black().italic()
 }

@@ -24,6 +24,13 @@ use crate::{
     logging::helpers::bright_yellow_backtick,
 };
 
+/// Loop that asks the user for a commit message format, then asks the
+/// user to confirm the commit message generated via the selection w/ the
+/// cli.
+///
+/// Returns:
+///
+/// A String
 pub fn process_commit_message() -> String {
     #[allow(unused_assignments)]
     let mut commit_message = String::new();
@@ -84,6 +91,13 @@ pub fn process_commit_message() -> String {
 //    or a custom message)                         //
 /////////////////////////////////////////////////////
 
+/// It asks the user for a commit type, scope, subject, body, breaking changes,
+/// and referenced issues, then logs a prettified version of the commit message
+/// to the user before returning it
+///
+/// Returns:
+///
+/// A String
 pub fn commit_conventional_standard() -> String {
     let pb = ProgressBar::new(6);
 
@@ -157,6 +171,12 @@ pub fn commit_standard_none() -> String {
 // in the process of generating the commit message //
 /////////////////////////////////////////////////////
 
+/// It asks the user to select a commit message format, and returns the selected
+/// format
+///
+/// Returns:
+///
+/// A CommitMessageFormat enum
 pub fn get_commit_message_format() -> CommitMessageFormat {
     let commit_message_formatting_options = &[
         format!(
@@ -205,6 +225,17 @@ pub fn get_commit_message_format() -> CommitMessageFormat {
     }
 }
 
+/// It returns the number of characters that can be used in the subject line of
+/// a commit message
+///
+/// Arguments:
+///
+/// * `commit_type`: The type of commit, e.g. feat, fix, etc.
+/// * `scope`: The scope of the commit.
+///
+/// Returns:
+///
+/// The remaining subject length.
 pub fn get_remaining_subject_length(commit_type: &str, scope: &str) -> usize {
     let max_subject_length = 100;
 
@@ -218,6 +249,12 @@ pub fn get_remaining_subject_length(commit_type: &str, scope: &str) -> usize {
     remaining_subject_length
 }
 
+/// It takes a list of commit types, prompts the user to select one, and returns
+/// the selected commit type
+///
+/// Returns:
+///
+/// A string
 pub fn get_commit_type() -> String {
     let commit_type_options = &[
         "feat:  A new feature",
@@ -263,10 +300,15 @@ pub fn get_commit_type() -> String {
         .to_string()
 }
 
+/// It asks the user for the scope of the change, and returns the answer
+///
+/// Returns:
+///
+/// A string
 pub fn get_scope() -> String {
     let scope = Input::new()
         .with_prompt(format!(
-            "\n\n{}{}{}{}:{}",
+            "\n{}{}{}{}:{}",
             "What is the ".bright_yellow().italic(),
             "scope".yellow().italic(),
             " of this change ".bright_yellow().italic(),
@@ -288,9 +330,11 @@ pub fn get_subject(commit_type: &str, scope: &str) -> String {
 
     let subject: String = Input::new()
         .with_prompt(format!(
-            "\n\n{} {} {} {}{}{}",
+            "\n{} {}{}{} {} {}{}{}",
             "Write a".bright_yellow().italic(),
-            "short, imperative tense description".yellow().italic(),
+            "short".yellow().italic(),
+            ",".black().italic(),
+            " imperative tense description".yellow().italic(),
             "of the change".bright_yellow().italic(),
             "(max ".black().italic(),
             remaining_subject_length.to_string().black().italic(),
@@ -319,7 +363,7 @@ pub fn get_subject(commit_type: &str, scope: &str) -> String {
 pub fn get_body() -> String {
     let body = Input::new()
         .with_prompt(format!(
-            "\n\n{}{}{}{}",
+            "\n{}{}{}{}",
             "Provide a ".bright_yellow().italic(),
             "longer description".yellow().italic(),
             " of the change ".bright_yellow().italic(),

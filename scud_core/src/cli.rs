@@ -1,6 +1,10 @@
 use std::path::PathBuf;
 
-use clap::{Args, Parser, Subcommand};
+use clap::{
+    Args,
+    Parser,
+    Subcommand,
+};
 
 // TODO add scud stash
 // add scud pop
@@ -21,16 +25,23 @@ pub enum VCS {
     Mercurial,
     Breezy,
     // SVN, // TODO add support for SVN (maybe), requires different strategy
-    // CVS, // TODO add support for CVS (maybe), requires different strategy for detection
-    // Bazaar, not actively maintained, Breezy is recommended alternative.
+    // CVS, // TODO add support for CVS (maybe), requires different strategy for
+    // detection Bazaar, not actively maintained, Breezy is recommended
+    // alternative.
 }
 
 /// Command Line Argument Parser for scud
 #[derive(Debug, Parser)]
 #[clap(name = "scud")]
 #[clap(
-    about = "A toolkit for streamlining the many version and source control processes of your development workflow. Agnostic to your codebase's internals and development environment, it just works.",
-    long_about = "Scud was created to fill the gap between the many version control processes of your development workflow and build upon the features provided by similar tools in the space (commitizen, cz cli, etc.), without compromising on performance. All commands support aliases thanks to clap to further enhance overall DX."
+    about = "A toolkit for streamlining the many version and source control \
+             processes of your development workflow. Agnostic to your codebase's \
+             internals and development environment, it just works.",
+    long_about = "Scud was created to fill the gap between the many version \
+                  control processes of your development workflow and build upon \
+                  the features provided by similar tools in the space (commitizen, \
+                  cz cli, etc.), without compromising on performance. All commands \
+                  support aliases thanks to clap to further enhance overall DX."
 )]
 #[clap(version)]
 pub struct Cli {
@@ -60,8 +71,8 @@ pub enum Commands {
     #[clap(alias = "n")]
     New(New),
 
-    /// Initializes a local repository with a given VCS provider (currently supported: git, mercurial, breezy).
-    /// [alias: i]
+    /// Initializes a local repository with a given VCS provider (currently
+    /// supported: git, mercurial, breezy). [alias: i]
     // (currently supported: Git, SVN, CVS, Mercurial, Bazaar).
     // This command is useful for initializing a repository that
     // is not yet tracked by a particular Version Control System.
@@ -91,9 +102,25 @@ pub enum Commands {
     /// Unstages all modified files and directories within
     /// the current local repository.
     /// [alias: u]
-    // This command is useful for reverting changes made to files tracked by your version control system.
+    // This command is useful for reverting changes made to files tracked by your
+    // version control system.
     #[clap(alias = "u")]
     Unstage(Unstage),
+
+    /// Checks the status of the local repository (e.g. seeing which files are
+    /// untracked, staged, etc. as well as branching information).
+    /// [alias: st]
+    // This command is useful for checking the status of the local repository in
+    // terms of seeing which files are untracked, staged, etc.
+    #[clap(alias = "st")]
+    State(State),
+
+    /// Show changes between the working tree and the index or a tree
+    /// [alias: d]
+    // This command is useful for seeing the changes between the working tree and the
+    // index or a tree.
+    #[clap(alias = "d")]
+    Diff(Diff),
 
     /// Commits all staged files in the current local repository.
     /// [alias: c]
@@ -112,21 +139,17 @@ pub enum Commands {
 
     /// Pushes all commits to the remote repository.
     /// [alias: ps]
-    // This command is useful for pushing your local commits to the remote repository.
+    // This command is useful for pushing your local commits to the remote
+    // repository.
     #[clap(alias = "ps")]
     Push(Push),
 
     /// Pulls all commits from the remote repository.
     /// [alias: pl]
-    // This command is useful for pulling your remote commits to the local repository.
+    // This command is useful for pulling your remote commits to the local
+    // repository.
     #[clap(alias = "pl")]
     Pull(Pull),
-
-    /// Checks the status of the local repository.
-    /// [alias: st]
-    // This command is useful for checking the status of the local repository in terms of seeing which files are untracked, staged, etc.
-    #[clap(alias = "st")]
-    State(State),
 
     /// Handles the process of updating scud to the latest version.
     /// [alias: up]
@@ -152,8 +175,8 @@ pub struct Info {
 
 #[derive(Debug, Subcommand)]
 pub enum InfoCommands {
-    /// Details information about the contents of the codebase within the current directory
-    /// [alias: cb]
+    /// Details information about the contents of the codebase within the
+    /// current directory [alias: cb]
     #[clap(alias = "cb")]
     Codebase(Codebase),
 }
@@ -193,8 +216,8 @@ pub struct New {
 // Arguments for the `init` subcommand. //
 //////////////////////////////////////////
 
-/// Initializes a local repository with a given VCS provider (currently supported: git, mercurial, breezy).
-/// [alias: i]
+/// Initializes a local repository with a given VCS provider (currently
+/// supported: git, mercurial, breezy). [alias: i]
 #[derive(Debug, Args)]
 pub struct Init {
     /// When true, will not initialize a new repository with the specified.
@@ -217,8 +240,8 @@ pub struct Init {
     /// [default: false]
     #[clap(short, long, value_parser, required = false, default_value_t = false)]
     pub info: bool,
-    // /// The desired VCS provider (currently supported: Git, SVN, CVS, Mercurial, Bazaar)
-    // /// The default is Git.
+    // /// The desired VCS provider (currently supported: Git, SVN, CVS, Mercurial,
+    // Bazaar) /// The default is Git.
     // #[clap(value_parser, default_value_t = String::from("git"))]
     // pub vcs: String,
 }
@@ -232,8 +255,8 @@ pub struct Init {
 /// [alias: su]
 #[derive(Debug, Args)]
 pub struct Setup {
-    /// The desired VCS provider (currently supported: Git, SVN, CVS, Mercurial, Bazaar)
-    /// The default is GitHub.
+    /// The desired VCS provider (currently supported: Git, SVN, CVS, Mercurial,
+    /// Bazaar) The default is GitHub.
     #[clap(value_parser)]
     pub vcs: Option<String>,
 
@@ -250,12 +273,23 @@ pub struct Setup {
 //////////////////////////////////////////
 
 /// Shows changes to files in the current local repository
-/// Lists changed, Lists changed, added and deleted files compared to the currently checked-out commit.
+/// Lists changed, Lists changed, added and deleted files compared to the
+/// currently checked-out commit.
 ///
 /// [alias: s]
 /// ✔✔️✔️️
 #[derive(Debug, Args)]
 pub struct State {
+    /// When true, will output the commands that scud runs under the hood
+    /// for each of the supported version control systems.
+    /// (optional).
+    /// [default: false]
+    #[clap(short, long, value_parser, required = false, default_value_t = false)]
+    pub info: bool,
+}
+
+#[derive(Debug, Args)]
+pub struct Diff {
     /// When true, will output the commands that scud runs under the hood
     /// for each of the supported version control systems.
     /// (optional).

@@ -1,21 +1,32 @@
-use colored::Colorize;
+use colored::{
+    Color,
+    Colorize,
+};
 
 use crate::logging::helpers::{
-    black_colon, black_italic_implies, black_period, bright_yellow_backtick,
+    black_colon,
+    black_comma,
+    black_italic_implies,
+    black_period,
+    bright_yellow_backtick,
+    yellow_backtick,
 };
 
 #[derive(Debug)]
 pub enum DiagnosticKind<'a> {
     CommandInfo {
-        command: &'a str,
+        command:     &'a str,
         description: &'a str,
+    },
+    DryRun {
+        command: &'a str,
     },
     Error {
         subject: &'a str,
-        body: &'a str,
+        body:    &'a str,
     },
     Hint {
-        body: &'a str,
+        body:    &'a str,
         // TODO refactor body to
         // service: &'a str,
         // provider: &'a str,
@@ -29,10 +40,10 @@ pub enum DiagnosticKind<'a> {
         body: &'a str,
     },
     VCSInfo {
-        command_name: &'a str,
-        git_command: &'a str,
+        command_name:      &'a str,
+        git_command:       &'a str,
         mercurial_command: &'a str,
-        breezy_command: &'a str,
+        breezy_command:    &'a str,
     },
     WorkInProgress {
         feature: &'a str,
@@ -59,13 +70,47 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
                 description.to_string().italic()
             );
         }
+        DiagnosticKind::DryRun { command } => {
+            println!(
+                "\n{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}\n",
+                " DRY RUN ".on_color(Color::TrueColor {
+                    r: 239,
+                    g: 175,
+                    b: 3,
+                }),
+                "  No ".bright_yellow().italic(),
+                command.cyan().italic(),
+                " was executed".bright_yellow().italic(),
+                black_period(),
+                " To ".bright_yellow().italic(),
+                "properly ".bright_yellow().italic(),
+                command.bright_yellow().italic(),
+                black_comma(),
+                " rerun".yellow().italic(),
+                " the ".bright_yellow().italic(),
+                yellow_backtick(),
+                "scud ".green(),
+                command.green(),
+                yellow_backtick(),
+                " command ".bright_yellow().italic(),
+                "without".yellow().italic(),
+                " the ".bright_yellow().italic(),
+                "\"".black().italic(),
+                "--".bright_yellow().italic(),
+                "dry-run".yellow().italic(),
+                "\"".black().italic(),
+                " flag".bright_yellow().italic(),
+                black_period(),
+            );
+        }
         DiagnosticKind::Error { subject, body } => {
             println!(
                 "\n{} {}\n\n{}\n\n{}{}\n",
                 " ERROR ".black().on_red(),
                 subject.to_string().red(),
                 body.to_string().italic(),
-                "For more information, please see the scud documentation at ".bright_yellow(),
+                "For more information, please see the scud documentation at "
+                    .bright_yellow(),
                 "https://scud.dev/docs/".bright_cyan().italic()
             );
         }
@@ -82,7 +127,7 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
             );
         }
         DiagnosticKind::Info => {
-            println!("{}", " INFO ".on_yellow(),);
+            println!("{}", " INFO ".on_yellow());
         }
         DiagnosticKind::Note { body } => {
             println!("{} {}\n", " NOTE ".on_bright_yellow(), body.to_string());
@@ -105,7 +150,8 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
             println!(
                 "{} {} {}{} {}{}{}\n\n{} {} {}\n\n{} {} {}\n\n{} {} {}\n",
                 " INFO ".on_yellow(),
-                "Underlying commands issued for supported version control systems during"
+                "Underlying commands issued for supported version control systems \
+                 during"
                     .yellow()
                     .italic(),
                 bright_yellow_backtick(),
@@ -127,13 +173,10 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
         DiagnosticKind::WorkInProgress { feature } => {
             println!(
                 "{} {} {}\n",
-                " WORK IN PROGRESS "
-                    .on_bright_green(),
-                feature
-                    .to_string()
-                    .green()
-                    .italic(),
-                "is currently under development. What you're seeing is only its initial scaffolding"
+                " WORK IN PROGRESS ".on_bright_green(),
+                feature.to_string().green().italic(),
+                "is currently under development. What you're seeing is only its \
+                 initial scaffolding"
                     .bright_green()
                     .italic()
             );
@@ -145,8 +188,8 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
 // behind 1
 // tip ...
 
-// pub fn log_vcs_under_the_hood(git_command: &str, mercurial_command: &str, breezy_command: &str) {
-//     println!("Git -> {}", git_command);
+// pub fn log_vcs_under_the_hood(git_command: &str, mercurial_command: &str,
+// breezy_command: &str) {     println!("Git -> {}", git_command);
 //     println!("Mercurial -> {}", mercurial_command);
 //     println!("Breezy -> {}", breezy_command);
 // }

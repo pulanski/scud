@@ -1,4 +1,7 @@
-use std::{process::Command, time::SystemTime};
+use std::{
+    process::Command,
+    time::SystemTime,
+};
 
 use colored::Colorize;
 
@@ -6,10 +9,18 @@ use crate::{
     cli::VCS,
     helpers::detect_vcs,
     logging::{
-        diagnostics::{log_diagnostic, DiagnosticKind},
-        helpers::{black_italic_quote, bright_yellow_backtick},
+        diagnostics::{
+            log_diagnostic,
+            DiagnosticKind,
+        },
+        helpers::{
+            black_italic_quote,
+            bright_yellow_backtick,
+        },
     },
 };
+
+use super::helpers::black_period;
 
 pub fn log_execution_time(start_time: SystemTime) {
     let end_time = SystemTime::now();
@@ -46,20 +57,26 @@ pub fn log_dry_run_note() {
     log_diagnostic(
         DiagnosticKind::Note {
             body: &format!(
-                "{} {}{}{} {}",
-                "The".bright_yellow(),
+                "{} {}{}{}{} {}{}{}{}{}",
+                "The".yellow().italic(),
                 black_italic_quote(),
-                "--dry-run".yellow().italic(),
+                "--".bright_yellow().italic(),
+                "dry-run".yellow().italic(),
                 black_italic_quote(),
-                "flag means no changes were made.".bright_yellow()
+                "flag means ".yellow().italic(),
+                "no changes".bright_yellow().italic(),
+                " were ".yellow().italic(),
+                "made".bright_yellow().italic(),
+                black_period(),
             ),
-        }, // format!("{}{}{}{}{}\n",
-           // "The ".bright_yellow(),
-           // black_italic_quote(),
-           // "--dry-run".yellow().italic(),
-           // black_italic_quote(),
-           // " flag means no changes were made.".bright_yellow()
-           // )
+        },
+        /* format!("{}{}{}{}{}\n",
+         * "The ".bright_yellow(),
+         * black_italic_quote(),
+         * "--dry-run".yellow().italic(),
+         * black_italic_quote(),
+         * " flag means no changes were made.".bright_yellow()
+         * ) */
     );
 }
 
@@ -178,7 +195,9 @@ pub fn log_repo_status(_dry_run: bool) {
                     bright_yellow_backtick(),
                     "scud stage".green().italic(),
                     bright_yellow_backtick(),
-                    "to stage all unstaged changes and untracked files for commit or use".yellow(),
+                    "to stage all unstaged changes and untracked files for commit \
+                     or use"
+                        .yellow(),
                     bright_yellow_backtick(),
                     "scud commit".green().italic(),
                     bright_yellow_backtick(),
