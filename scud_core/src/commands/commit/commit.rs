@@ -1,31 +1,16 @@
-use colored::Colorize;
-
 use crate::{
     cli::{
         Commit,
         VCS,
     },
-    commands::commit::{
-        executors::{
-            execute_commit_breezy,
-            execute_commit_git,
-            execute_commit_mercurial,
-        },
-        helpers::process_commit_message,
-    },
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
+    commands::commit::executors::{
+        execute_commit_breezy,
+        execute_commit_dry_run,
+        execute_commit_git,
+        execute_commit_info,
+        execute_commit_mercurial,
     },
     helpers::detect_vcs,
-    logging::{
-        general::log_dry_run_note,
-        helpers::{
-            black_comma,
-            black_period,
-            bright_yellow_backtick,
-        },
-    },
 };
 
 /// Defining an enum to represent the supported Commit Message Specifications:
@@ -49,7 +34,6 @@ pub enum CommitMessageFormat {
 pub fn commit_command(commit_options: Commit) {
     if commit_options.dry_run {
         execute_commit_dry_run();
-        log_dry_run_note();
     } else if commit_options.info {
         execute_commit_info();
     } else {
@@ -70,15 +54,4 @@ fn execute_commit() {
         VCS::Mercurial => execute_commit_mercurial(),
         VCS::Breezy => execute_commit_breezy(),
     }
-}
-
-fn execute_commit_dry_run() {
-    let _commit_message = process_commit_message();
-    log_diagnostic(DiagnosticKind::DryRun { command: "commit" });
-}
-
-fn execute_commit_info() {
-    log_diagnostic(DiagnosticKind::WorkInProgress {
-        feature: "Commit under the hood",
-    });
 }

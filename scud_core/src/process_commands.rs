@@ -3,12 +3,16 @@ use std::time::SystemTime;
 use crate::{
     cli::*,
     commands::{
-        commit::commit::commit_command, healthcheck::healthcheck::healthcheck_command,
-        info::codebase::codebase::codebase_command, init::init::init_command,
-        push::push::push_command, stage::stage::stage_command, state::state::state_command,
-        unstage::unstage::unstage_command, update::update::update_command,
+        commit::commit::commit_command,
+        healthcheck::healthcheck::healthcheck_command,
+        info::codebase::codebase::codebase_command,
+        init::init::init_command,
+        push::push::push_command,
+        stage::stage::stage_command,
+        state::state::state_command,
+        unstage::unstage::unstage_command,
+        update::update::update_command,
     },
-    info,
 };
 
 pub fn process_args(args: Cli, start_time: SystemTime) {
@@ -62,6 +66,8 @@ pub fn process_args(args: Cli, start_time: SystemTime) {
             println!("Pull: {}", pull_options.info);
             // pull_command(pull_options, start_time);
         }
+
+        // Commands::
 
         ////////////////////////////
         // Various setup commands //

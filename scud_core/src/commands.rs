@@ -8,6 +8,7 @@ pub mod init;
 
 // Declarative high-level operations on the top of the VCS.
 pub mod commit;
+pub mod feature;
 pub mod push;
 pub mod stage;
 pub mod state;

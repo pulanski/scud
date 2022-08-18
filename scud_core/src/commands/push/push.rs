@@ -1,15 +1,15 @@
-use std::time::SystemTime;
-use std::process::Command;
+use crate::diagnostics::{
+    log_diagnostic,
+    DiagnosticKind,
+};
 use crate::{
     cli::Push,
-    logging::general::{
-      log_dry_run_note,
-      log_execution_time,
-    },
+    logging::general::log_execution_time,
 };
+use std::process::Command;
+use std::time::SystemTime;
 
 pub fn push_command(push_options: Push, start_time: SystemTime) {
-
     // check for global config file
 
     // check for vcs option passed in push_options
@@ -17,27 +17,20 @@ pub fn push_command(push_options: Push, start_time: SystemTime) {
 
     if push_options.dry_run {
         execute_push_dry_run();
-        log_dry_run_note();
     } else {
         execute_push();
     }
 
     match push_options.dry_run {
-        true => {
-
-        }
-        false => {
-
-        }
+        true => {}
+        false => {}
     }
 
     log_execution_time(start_time);
 }
 
 fn execute_push() {
-    match Command::new("git")
-        .arg("push")
-        .status() {
+    match Command::new("git").arg("push").status() {
         Ok(status) => {
             if !status.success() {
                 panic!("Failed to push files");
@@ -50,10 +43,7 @@ fn execute_push() {
 }
 
 fn execute_push_dry_run() {
-    match Command::new("git")
-        .arg("push")
-        .arg("--dry-run")
-        .status() {
+    match Command::new("git").arg("push").arg("--dry-run").status() {
         Ok(status) => {
             if !status.success() {
                 panic!("Failed to push files");
@@ -63,6 +53,8 @@ fn execute_push_dry_run() {
             panic!("Failed to push files: {}", error);
         }
     }
+
+    log_diagnostic(DiagnosticKind::DryRun { command: "push" });
 }
 
 // TODO add helpful diagnostics for when

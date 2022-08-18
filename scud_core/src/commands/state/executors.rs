@@ -2,10 +2,37 @@ use std::process::Command;
 
 use colored::Colorize;
 
-use crate::{
-    diagnostics::{log_diagnostic, DiagnosticKind},
-    logging::helpers::{black_colon, bright_yellow_backtick},
+use crate::diagnostics::{
+    log_diagnostic,
+    DiagnosticKind,
 };
+
+pub fn execute_state_info() {
+    log_diagnostic(DiagnosticKind::CommandInfo {
+        command:     "state",
+        description: "This command is intended to display repository metadata \
+                      including branching information as well as file changes in a \
+                      concise, human-readable format.",
+    });
+    log_diagnostic(DiagnosticKind::VCSInfo {
+        command_name:      "state",
+        git_command:       &format!(
+            "{} {}",
+            "git status",
+            "(along with other commands for more rich output)".bright_yellow()
+        ),
+        mercurial_command: &format!(
+            "{} {}",
+            "hg status",
+            "(along with other commands for more rich output)".bright_yellow()
+        ),
+        breezy_command:    &format!(
+            "{} {}",
+            "bzr status",
+            "(along with other commands for more rich output)".bright_yellow()
+        ),
+    });
+}
 
 pub fn execute_state_git() {
     println!(
@@ -20,6 +47,10 @@ pub fn execute_state_git() {
     // match Command::new("git").arg("status").arg("-sb").output() {
     //     Ok(status) => {
     //         let status_raw = String::from_utf8_lossy(&status.stdout).to_string();
+
+    // if there are no unstaged and no untracked files, then the repository is clean
+    // and issuing the stage command will have no effect on the repository
+    // and that control flow will be output back to the user as a diagnostic
 
     //         // Get current branches
     //         let current_branches = status_raw
@@ -38,12 +69,14 @@ pub fn execute_state_git() {
     //         //  \-
 
     //         // Get local branch
-    //         let local_branch_raw = current_branches.split("...").nth(0).unwrap_or_default();
-    //         let local_branch = &format!(" {local_branch_raw} ");
+    //         let local_branch_raw =
+    // current_branches.split("...").nth(0).unwrap_or_default();         let
+    // local_branch = &format!(" {local_branch_raw} ");
 
     //         // Get remote branch
-    //         let remote_branch_raw = current_branches.split("...").nth(1).unwrap_or_default();
-    //         let remote_branch = &format!(" {remote_branch_raw} ");
+    //         let remote_branch_raw =
+    // current_branches.split("...").nth(1).unwrap_or_default();         let
+    // remote_branch = &format!(" {remote_branch_raw} ");
 
     //         println!(
     //             "{}{}  {} {} {}\n",
@@ -63,7 +96,8 @@ pub fn execute_state_git() {
     // // Get all branches
     // match Command::new("git").arg("branch").arg("-a").output() {
     //     Ok(branches) => {
-    //         let branches_raw = String::from_utf8_lossy(&branches.stdout).to_string();
+    //         let branches_raw =
+    // String::from_utf8_lossy(&branches.stdout).to_string();
 
     //         // Get all local branches
     //         let branches = branches_raw
@@ -80,15 +114,16 @@ pub fn execute_state_git() {
 
     //         for branch_raw in branches {
     //             if branch_raw.contains("*") {
-    //                 let branch = format!(" {} ", &branch_raw.replace("*", "").trim().to_string());
-    //                 println!("{}\n", branch.black().italic().on_yellow());
-    //             } else {
+    //                 let branch = format!(" {} ", &branch_raw.replace("*",
+    // "").trim().to_string());                 println!("{}\n",
+    // branch.black().italic().on_yellow());             } else {
     //                 let branch = &format!(" {branch_raw} ");
     //                 println!("{}\n", branch.black().italic().on_yellow(),);
     //             }
     //         }
 
-    //         println!("Potential Branch Metadata implementations\n\nDESIGN ONE\n");
+    //         println!("Potential Branch Metadata implementations\n\nDESIGN
+    // ONE\n");
 
     //         println!(
     //             "{} {} {} {}\n{}",
@@ -131,6 +166,8 @@ pub fn execute_state_git() {
 
     println!("\n{}\n", " CHANGES TO FILES: ".black().on_cyan());
 
+    // get_all_staged_changes();
+
     // Get changes staged for commit
     // git diff --name-only --cached
     match Command::new("git")
@@ -154,12 +191,15 @@ pub fn execute_state_git() {
                 }
                 println!();
             } else {
-                println!("  {}\n", "No changes staged for commit...".black().italic());
+                println!(
+                    "  {}\n",
+                    "No changes staged for commit...".black().italic()
+                );
             }
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting staged changes (git)",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 
@@ -190,7 +230,7 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting unstaged files (git)",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 
@@ -201,7 +241,8 @@ pub fn execute_state_git() {
         .output()
     {
         Ok(output) => {
-            let untracked_files = String::from_utf8_lossy(&output.stdout).to_string();
+            let untracked_files =
+                String::from_utf8_lossy(&output.stdout).to_string();
 
             if untracked_files.len() > 0 {
                 println!("  {}\n", "Untracked files: ".black().italic());
@@ -220,7 +261,7 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting untracked files (git)",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 }

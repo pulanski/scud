@@ -6,16 +6,20 @@ use crate::{
     cli::Unstage,
     commands::unstage::executors::execute_unstage_git,
     detect_vcs,
-    diagnostics::{log_diagnostic, DiagnosticKind},
-    general::log_dry_run_note,
-    logging::{general::log_execution_time, helpers::bright_yellow_backtick},
+    diagnostics::{
+        log_diagnostic,
+        DiagnosticKind,
+    },
+    logging::{
+        general::log_execution_time,
+        helpers::bright_yellow_backtick,
+    },
     VCS,
 };
 
 pub fn unstage_command(unstage_options: Unstage, start_time: SystemTime) {
     if unstage_options.dry_run {
         execute_unstage_dry_run();
-        log_dry_run_note();
     } else if unstage_options.info {
         execute_unstage_info();
     } else {
@@ -26,12 +30,17 @@ pub fn unstage_command(unstage_options: Unstage, start_time: SystemTime) {
 }
 
 fn execute_unstage() {
-    log_diagnostic(
-        DiagnosticKind::CommandInfo {
-            command: "unstage",
-            description: "This command is intended to unstage all modified files in the current local repository ensuring they are ready to be committed. It is smart enough to detect the underlying version control system in which it is being run and execute the associated commands. Additionally, it can be run within any deeply nested subdirectory of the local repository root and will unstage all modified files and directories within the current repository."
-        }
-    );
+    log_diagnostic(DiagnosticKind::CommandInfo {
+        command:     "unstage",
+        description: "This command is intended to unstage all modified files in \
+                      the current local repository ensuring they are ready to be \
+                      committed. It is smart enough to detect the underlying \
+                      version control system in which it is being run and execute \
+                      the associated commands. Additionally, it can be run within \
+                      any deeply nested subdirectory of the local repository root \
+                      and will unstage all modified files and directories within \
+                      the current repository.",
+    });
 
     let vcs = detect_vcs();
 
@@ -53,10 +62,10 @@ fn execute_unstage() {
     });
 }
 
-fn execute_unstage_dry_run() {
-    log_diagnostic(DiagnosticKind::WorkInProgress {
-        feature: "scud unstage --dry-run",
-    });
+pub fn execute_unstage_dry_run() {
+    log_diagnostic(DiagnosticKind::DryRun { command: "unstage" });
 }
 
-fn execute_unstage_info() {}
+fn execute_unstage_info() {
+
+}

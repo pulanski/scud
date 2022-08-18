@@ -59,7 +59,7 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
             const VERSION: &str = env!("CARGO_PKG_VERSION");
 
             println!(
-                "{}{}{}{} {}{}{}\n\n{}\n",
+                "\n{}{}{}{} {}{}{}\n\n{}\n",
                 " Scud ".black().on_yellow(),
                 "v".black().italic().on_yellow(),
                 VERSION.black().italic().on_yellow(),
@@ -148,14 +148,15 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
             breezy_command,
         } => {
             println!(
-                "{} {} {}{} {}{}{}\n\n{} {} {}\n\n{} {} {}\n\n{} {} {}\n",
+                "{}{}{}{}{}{}{}{}{}{}{}\n\n{} {} {}\n\n{} {} {}\n\n{} {} {}\n",
                 " INFO ".on_yellow(),
-                "Underlying commands issued for supported version control systems \
-                 during"
-                    .yellow()
-                    .italic(),
+                " Detailed below are the ".yellow(),
+                "underlying commands".blue().italic(),
+                " issued for ".yellow(),
+                "supported version control systems".bright_yellow().italic(),
+                " when using ".yellow(),
                 bright_yellow_backtick(),
-                "scud".green().italic(),
+                "scud ".green().italic(),
                 command_name.to_string().green().italic(),
                 bright_yellow_backtick(),
                 black_period(),
