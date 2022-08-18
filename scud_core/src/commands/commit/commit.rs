@@ -75,31 +75,6 @@ fn execute_commit() {
 fn execute_commit_dry_run() {
     let _commit_message = process_commit_message();
     log_diagnostic(DiagnosticKind::DryRun { command: "commit" });
-
-    // println!(
-    //     "\n{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}\n",
-    //     " NOTE ".on_bright_yellow(),
-    //     "  No commit was executed".yellow().italic(),
-    //     ".".black(),
-    //     " To ".yellow().italic(),
-    //     "properly commit".bright_yellow().italic(),
-    //     " to the current branch".yellow().italic(),
-    //     ",".black(),
-    //     " rerun".bright_yellow().italic(),
-    //     " the ".yellow().italic(),
-    //     "`".bright_yellow(),
-    //     "scud commit".green(),
-    //     "`".bright_yellow(),
-    //     " command ".yellow().italic(),
-    //     "without".bright_yellow().italic(),
-    //     " the ".yellow().italic(),
-    //     "\"".black().italic(),
-    //     "--".bright_yellow().italic(),
-    //     "dry-run".yellow().italic(),
-    //     "\"".black().italic(),
-    //     " flag".yellow().italic(),
-    //     ".".black(),
-    // );
 }
 
 fn execute_commit_info() {
