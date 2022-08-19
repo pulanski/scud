@@ -6,21 +6,21 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
-- Fixed issues with state not functioning as intended
-- Fix issues with commit process
+-   Fixed issues with state not functioning as intended
+-   Fix issues with commit process
 
 ### Features
 
-- Rewrite dry run logging
-- Add initial scaffolding for feature subcommand
+-   Rewrite dry run logging
+-   Add initial scaffolding for feature subcommand
 
 ### Miscellaneous Tasks
 
-- Remove dead code
+-   Remove dead code
 
 ### Refactor
 
-- Refactor the info commands
+-   Refactor the info commands
 
 ## [0.10.0] - 2022-08-08
 

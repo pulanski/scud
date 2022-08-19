@@ -1,13 +1,7 @@
-use std::{
-    process::Command,
-    time::Duration,
-};
+use std::{process::Command, time::Duration};
 
 use colored::Colorize;
-use update_informer::{
-    registry,
-    Check,
-};
+use update_informer::{registry, Check};
 
 pub fn execute_update() {
     // const EVERY_MIN: Duration = Duration::from_secs(60);

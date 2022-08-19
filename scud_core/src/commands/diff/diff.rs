@@ -1,18 +1,14 @@
 use std::time::SystemTime;
 
 use crate::{
-    cli::cli::{
-        Diff,
-        VCS,
-    },
+    cli::cli::VCS,
     commands::diff::executors::{
-        execute_diff_breezy,
-        execute_diff_git,
-        execute_diff_info,
+        execute_diff_breezy, execute_diff_git, execute_diff_info,
         execute_diff_mercurial,
     },
     helpers::detect_vcs,
     logging::general::log_execution_time,
+    version_control::Diff,
 };
 
 pub fn diff_command(diff_options: Diff, start_time: SystemTime) {

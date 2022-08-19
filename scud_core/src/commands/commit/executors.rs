@@ -1,14 +1,8 @@
 use std::process::Command;
 
 use crate::{
-    commands::commit::helpers::{
-        check_for_staged_files,
-        process_commit_message,
-    },
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
+    commands::commit::helpers::{check_for_staged_files, process_commit_message},
+    diagnostics::{log_diagnostic, DiagnosticKind},
 };
 
 /// Takes the commit message from the user
@@ -57,7 +51,7 @@ pub fn execute_commit_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "git commit failed",
-            body:    &format!("{}", error),
+            body: &format!("{}", error),
         }),
     }
 }

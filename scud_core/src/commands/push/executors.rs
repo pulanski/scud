@@ -1,9 +1,6 @@
 use std::process::Command;
 
-use crate::diagnostics::{
-    log_diagnostic,
-    DiagnosticKind,
-};
+use crate::diagnostics::{log_diagnostic, DiagnosticKind};
 
 pub fn execute_push_dry_run() {
     match Command::new("git").args(["push", "--dry-run"]).status() {

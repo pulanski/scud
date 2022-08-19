@@ -3,20 +3,11 @@ use std::time::SystemTime;
 use colored::Colorize;
 
 use crate::{
-    cli::cli::{
-        Unstage,
-        VCS,
-    },
+    cli::cli::{Unstage, VCS},
     commands::unstage::executors::execute_unstage_git,
     detect_vcs,
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
-    logging::{
-        general::log_execution_time,
-        helpers::bright_yellow_backtick,
-    },
+    diagnostics::{log_diagnostic, DiagnosticKind},
+    logging::{general::log_execution_time, helpers::bright_yellow_backtick},
 };
 
 pub fn unstage_command(unstage_options: Unstage, start_time: SystemTime) {
@@ -33,7 +24,7 @@ pub fn unstage_command(unstage_options: Unstage, start_time: SystemTime) {
 
 fn execute_unstage() {
     log_diagnostic(DiagnosticKind::CommandInfo {
-        command:     "unstage",
+        command: "unstage",
         description: "This command is intended to unstage all modified files in \
                       the current local repository ensuring they are ready to be \
                       committed. It is smart enough to detect the underlying \

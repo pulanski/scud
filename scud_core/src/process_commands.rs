@@ -1,17 +1,13 @@
 use std::time::SystemTime;
 
 use crate::{
-    cli::cli::{
-        Cli,
-        Commands,
-    },
+    cli::cli::{Cli, Commands},
     commands::{
         commit::commit::commit_command,
         diff::diff::diff_command,
         healthcheck::healthcheck::healthcheck_command,
         info::{
-            codebase::codebase::codebase_command,
-            system::system::system_command,
+            codebase::codebase::codebase_command, system::system::system_command,
         },
         init::init::init_command,
         push::push::push_command,

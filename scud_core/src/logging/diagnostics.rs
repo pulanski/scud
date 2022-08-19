@@ -1,21 +1,14 @@
-use colored::{
-    Color,
-    Colorize,
-};
+use colored::{Color, Colorize};
 
 use crate::logging::helpers::{
-    black_colon,
-    black_comma,
-    black_italic_implies,
-    black_period,
-    bright_yellow_backtick,
-    yellow_backtick,
+    black_colon, black_comma, black_italic_implies, black_period,
+    bright_yellow_backtick, yellow_backtick,
 };
 
 #[derive(Debug)]
 pub enum DiagnosticKind<'a> {
     CommandInfo {
-        command:     &'a str,
+        command: &'a str,
         description: &'a str,
     },
     DryRun {
@@ -23,10 +16,10 @@ pub enum DiagnosticKind<'a> {
     },
     Error {
         subject: &'a str,
-        body:    &'a str,
+        body: &'a str,
     },
     Hint {
-        body:    &'a str,
+        body: &'a str,
         // TODO refactor body to
         // service: &'a str,
         // provider: &'a str,
@@ -40,10 +33,10 @@ pub enum DiagnosticKind<'a> {
         body: &'a str,
     },
     VCSInfo {
-        command_name:      &'a str,
-        git_command:       &'a str,
+        command_name: &'a str,
+        git_command: &'a str,
         mercurial_command: &'a str,
-        breezy_command:    &'a str,
+        breezy_command: &'a str,
     },
     WorkInProgress {
         feature: &'a str,

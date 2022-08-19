@@ -1,25 +1,14 @@
 use std::time::SystemTime;
 
 use crate::{
-    cli::cli::{
-        State,
-        VCS,
-    },
+    cli::cli::{State, VCS},
     commands::state::executors::{
-        execute_state_breezy,
-        execute_state_git,
-        execute_state_info,
+        execute_state_breezy, execute_state_git, execute_state_info,
         execute_state_mercurial,
     },
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
+    diagnostics::{log_diagnostic, DiagnosticKind},
     helpers::detect_vcs,
-    logging::{
-        general::log_execution_time,
-        helpers::bright_yellow_backtick,
-    },
+    logging::{general::log_execution_time, helpers::bright_yellow_backtick},
 };
 
 use colored::Colorize;

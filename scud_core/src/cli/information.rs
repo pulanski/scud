@@ -1,7 +1,4 @@
-use clap::{
-    Args,
-    Subcommand,
-};
+use clap::{Args, Subcommand};
 
 /// Useful information and diagnostics about your system and codebase
 /// (e.g. versions of various tools, system architecture and configuration,

@@ -1,8 +1,5 @@
 use crate::logging::general::log_execution_time;
-use crate::{
-    cli::cli::Push,
-    commands::push::executors::execute_push_dry_run,
-};
+use crate::{cli::cli::Push, commands::push::executors::execute_push_dry_run};
 use std::process::Command;
 use std::time::SystemTime;
 

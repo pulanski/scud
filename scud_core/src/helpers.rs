@@ -1,20 +1,11 @@
-use std::{
-    process::exit,
-    time::Duration,
-};
+use std::{process::exit, time::Duration};
 
 use colored::Colorize;
-use update_informer::{
-    registry,
-    Check,
-};
+use update_informer::{registry, Check};
 
 use crate::{
     cli::cli::VCS,
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
+    diagnostics::{log_diagnostic, DiagnosticKind},
     logging::helpers::bright_yellow_backtick,
 };
 
@@ -126,7 +117,7 @@ pub fn detect_vcs() -> VCS {
                     .bright_cyan()
                     .italic()
             ),
-            body:    "Scud's declarative, high-level operations on top of the \
+            body: "Scud's declarative, high-level operations on top of the \
                       underlying VCS are intended to be used with a supported \
                       version control system.",
         });

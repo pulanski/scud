@@ -1,7 +1,4 @@
-use crate::diagnostics::{
-    log_diagnostic,
-    DiagnosticKind,
-};
+use crate::diagnostics::{log_diagnostic, DiagnosticKind};
 
 pub fn execute_diff_breezy() {
     log_diagnostic(DiagnosticKind::WorkInProgress {

@@ -1,10 +1,7 @@
 use std::time::SystemTime;
 
 use crate::{
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
+    diagnostics::{log_diagnostic, DiagnosticKind},
     general::log_execution_time,
     information::System,
 };

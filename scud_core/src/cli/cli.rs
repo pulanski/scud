@@ -1,13 +1,12 @@
-use crate::cli::{
-    information::Info,
-    version_control::*,
+use crate::{
+    branching::Feature,
+    cli::{
+        information::Info,
+        version_control::{Diff, Init, New},
+    },
 };
 
-use clap::{
-    Args,
-    Parser,
-    Subcommand,
-};
+use clap::{Args, Parser, Subcommand};
 
 // TODO add scud stash
 // add scud pop
@@ -190,101 +189,6 @@ pub enum Commands {
     Healthcheck,
 }
 
-/// Provides feature branch functionality following the git-flow branching
-/// model. Handles listing, starting, and finishing feature branches.
-/// [alias: f]
-#[derive(Debug, Args)]
-#[clap(args_conflicts_with_subcommands = true)]
-pub struct Feature {
-    /// The subcommand to run.
-    #[clap(subcommand)]
-    pub command: Option<FeatureCommands>,
-}
-
-/// The subcommands within scud's feature command surface (i.e. list, start,
-/// finish).
-#[derive(Debug, Subcommand)]
-pub enum FeatureCommands {
-    /// Lists all feature branches in the current local repository.
-    /// [alias: ls]
-    #[clap(alias = "ls")]
-    List(FeatureList),
-
-    /// Starts a new feature branch in the current local repository.
-    /// [alias: st]
-    #[clap(alias = "st")]
-    Start(FeatureStart),
-    // /// Finishes the current feature branch in the current local repository.
-    // /// [alias: fin]
-    // #[clap(alias = "fin")]
-    // Finish(Finish),
-}
-
-/// Lists all feature branches in the current local repository.
-/// [alias: ls]
-#[derive(Debug, Args)]
-pub struct FeatureList {
-    /// When true, will output the commands that scud runs under the hood
-    ///
-    /// (optional).
-    /// [default: false]
-    #[clap(short, long, value_parser, required = false, default_value_t = false)]
-    #[clap(value_parser)]
-    pub info: bool,
-}
-
-/// Starts a new feature branch in the current local repository.
-#[derive(Debug, Args)]
-pub struct FeatureStart {
-    /// When true, will not start a feature branch but will show expected
-    /// output. (optional).
-    /// [default: false]
-    #[clap(short, long, value_parser, required = false, default_value_t = false)]
-    pub dry_run: bool,
-
-    /// When true, will output the commands that scud runs under the hood
-    ///
-    /// (optional).
-    /// [default: false]
-    #[clap(short, long, value_parser, required = false, default_value_t = false)]
-    #[clap(value_parser)]
-    pub info: bool,
-}
-
-//////////////////////////////////////////
-// Arguments for the `init` subcommand. //
-//////////////////////////////////////////
-
-/// Initializes a local repository with a given VCS provider (currently
-/// supported: git, mercurial, breezy). [alias: i]
-#[derive(Debug, Args)]
-pub struct Init {
-    /// When true, will not initialize a new repository with the specified.
-    /// VCS provider, but will show expected output.
-    /// (optional).
-    /// [default: false]
-    /// [alias: -d]
-    #[clap(short, long, value_parser, required = false, default_value_t = false)]
-    pub dry_run: bool,
-
-    /// The name of the new project.
-    /// (optional).
-    /// [alias: n]
-    #[clap(short, long, value_parser, required = false)]
-    pub name: Option<String>,
-
-    /// When true, will output the commands that scud runs under the hood
-    /// for each of the supported version control systems.
-    /// (optional).
-    /// [default: false]
-    #[clap(short, long, value_parser, required = false, default_value_t = false)]
-    pub info: bool,
-    // /// The desired VCS provider (currently supported: Git, SVN, CVS, Mercurial,
-    // Bazaar) /// The default is Git.
-    // #[clap(value_parser, default_value_t = String::from("git"))]
-    // pub vcs: String,
-}
-
 ///////////////////////////////////////////
 // Arguments for the `setup` subcommand. //
 ///////////////////////////////////////////
@@ -319,16 +223,6 @@ pub struct Setup {
 /// ✔✔️✔️️
 #[derive(Debug, Args)]
 pub struct State {
-    /// When true, will output the commands that scud runs under the hood
-    /// for each of the supported version control systems.
-    /// (optional).
-    /// [default: false]
-    #[clap(short, long, value_parser, required = false, default_value_t = false)]
-    pub info: bool,
-}
-
-#[derive(Debug, Args)]
-pub struct Diff {
     /// When true, will output the commands that scud runs under the hood
     /// for each of the supported version control systems.
     /// (optional).

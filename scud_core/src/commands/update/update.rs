@@ -3,9 +3,7 @@ use std::time::SystemTime;
 use crate::{
     cli::cli::Update,
     commands::update::executors::{
-        execute_update,
-        execute_update_dry_run,
-        execute_update_info,
+        execute_update, execute_update_dry_run, execute_update_info,
     },
     general::log_execution_time,
 };

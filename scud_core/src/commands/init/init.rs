@@ -8,10 +8,7 @@ use dialoguer::{
     FuzzySelect,
 };
 
-use crate::{
-    cli::cli::Init,
-    logging::general::log_execution_time,
-};
+use crate::{logging::general::log_execution_time, version_control::Init};
 
 pub fn init_command(init_options: Init, start_time: SystemTime) {
     let vcs_options = &["Git", "Mercurial", "Breezy"];
