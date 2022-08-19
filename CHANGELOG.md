@@ -2,7 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.11.0] - 2022-08-19
+## [0.10.3] - 2022-08-19
+
+### Bug Fixes
+
+-   Fixed issues with state not functioning as intended
+-   Fix issues with commit process
+
+### Documentation
+
+-   Add more documentation to the CLI surface
+
+### Features
+
+-   Rewrite dry run logging
+-   Add initial scaffolding for feature subcommand
+
+### Miscellaneous Tasks
+
+-   Remove dead code
+
+### Refactor
+
+-   Refactor the info commands
+-   Refactor the information-based subcommands
+-   Refactor the diff subcommand of the cli surface
+
+## [0.10.2] - 2022-08-19
 
 ### Bug Fixes
 

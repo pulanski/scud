@@ -2,18 +2,21 @@ use std::process::Command;
 
 use colored::Colorize;
 
-use crate::diagnostics::{log_diagnostic, DiagnosticKind};
+use crate::diagnostics::{
+    log_diagnostic,
+    DiagnosticKind,
+};
 
 pub fn execute_state_info() {
     log_diagnostic(DiagnosticKind::CommandInfo {
-        command: "state",
+        command:     "state",
         description: "This command is intended to display repository metadata \
                       including branching information as well as file changes in a \
                       concise, human-readable format.",
     });
     log_diagnostic(DiagnosticKind::VCSInfo {
-        command_name: "state",
-        git_command: &format!(
+        command_name:      "state",
+        git_command:       &format!(
             "{} {}",
             "git status",
             "(along with other commands for more rich output)".bright_yellow()
@@ -23,7 +26,7 @@ pub fn execute_state_info() {
             "hg status",
             "(along with other commands for more rich output)".bright_yellow()
         ),
-        breezy_command: &format!(
+        breezy_command:    &format!(
             "{} {}",
             "bzr status",
             "(along with other commands for more rich output)".bright_yellow()
@@ -196,7 +199,7 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting staged changes (git)",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 
@@ -227,7 +230,7 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting unstaged files (git)",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 
@@ -258,7 +261,44 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting untracked files (git)",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
+        }),
+    }
+
+    // get status diff (e.g. git status -sb)
+    // parse number of commits ahead and behind
+    // if behind, print warning
+
+    match Command::new("git").args(["status", "-sb"]).output() {
+        Ok(output) => {
+            let status_diff = String::from_utf8_lossy(&output.stdout).to_string();
+            let mut status = status_diff.split("\n");
+
+            let branch_metadata = status.next().unwrap();
+            println!("{}", branch_metadata.bright_black().italic());
+            // [behind 1]
+            // let ahead = ahead_behind_split.next().unwrap();
+            // let behind = ahead_behind_split.next().unwrap();
+            // let ahead_int = ahead.parse::<i32>().unwrap();
+            // let behind_int = behind.parse::<i32>().unwrap();
+            // if ahead_int > 0 {
+            //     println!(
+            //         "  {}{}\n",
+            //         "You are commits ahead of the
+            // remote...".black().italic(),         ahead_int
+            //     );
+            // }
+            // if behind_int > 0 {
+            //     println!(
+            //         "  {}{}\n",
+            //         "You are commits behind the remote...".black().italic(),
+            //         behind_int
+            //     );
+            // }
+        }
+        Err(error) => log_diagnostic(DiagnosticKind::Error {
+            subject: "getting status diff (git)",
+            body:    &format!("{}", error),
         }),
     }
 }
