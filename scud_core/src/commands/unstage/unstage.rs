@@ -3,7 +3,10 @@ use std::time::SystemTime;
 use colored::Colorize;
 
 use crate::{
-    cli::Unstage,
+    cli::cli::{
+        Unstage,
+        VCS,
+    },
     commands::unstage::executors::execute_unstage_git,
     detect_vcs,
     diagnostics::{
@@ -14,7 +17,6 @@ use crate::{
         general::log_execution_time,
         helpers::bright_yellow_backtick,
     },
-    VCS,
 };
 
 pub fn unstage_command(unstage_options: Unstage, start_time: SystemTime) {
@@ -66,6 +68,4 @@ pub fn execute_unstage_dry_run() {
     log_diagnostic(DiagnosticKind::DryRun { command: "unstage" });
 }
 
-fn execute_unstage_info() {
-
-}
+fn execute_unstage_info() {}

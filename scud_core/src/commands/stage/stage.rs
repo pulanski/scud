@@ -3,7 +3,7 @@ use std::time::SystemTime;
 use colored::Colorize;
 
 use crate::{
-    cli::{
+    cli::cli::{
         Stage,
         VCS,
     },

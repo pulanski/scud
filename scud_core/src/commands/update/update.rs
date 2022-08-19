@@ -1,7 +1,7 @@
 use std::time::SystemTime;
 
 use crate::{
-    cli::Update,
+    cli::cli::Update,
     commands::update::executors::{
         execute_update,
         execute_update_dry_run,

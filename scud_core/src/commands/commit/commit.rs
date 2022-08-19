@@ -1,5 +1,5 @@
 use crate::{
-    cli::{
+    cli::cli::{
         Commit,
         VCS,
     },
@@ -29,8 +29,8 @@ pub enum CommitMessageFormat {
 ///
 /// Arguments:
 ///
-/// * `commit_options`: This is the struct that contains the options that   were
-///   passed to the command via user input.
+/// * `commit_options`: Struct that contains the options that were passed to the
+///   command via user input (e.g. dry-run, info).
 pub fn commit_command(commit_options: Commit) {
     if commit_options.dry_run {
         execute_commit_dry_run();

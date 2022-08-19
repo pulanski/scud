@@ -1,19 +1,28 @@
-use std::{process::exit, time::Duration};
+use std::{
+    process::exit,
+    time::Duration,
+};
 
 use colored::Colorize;
-use update_informer::{registry, Check};
+use update_informer::{
+    registry,
+    Check,
+};
 
 use crate::{
-    cli::VCS,
-    diagnostics::{log_diagnostic, DiagnosticKind},
+    cli::cli::VCS,
+    diagnostics::{
+        log_diagnostic,
+        DiagnosticKind,
+    },
     logging::helpers::bright_yellow_backtick,
 };
 
 // Where there are options for pure shell scripts, those are chosen
 // and associated command is shown to the user (maybe ?)
 // general approach will be
-// TODO list for supported package managers under the hood for various setup commands
-// TODO brew for mac, choco for windows
+// TODO list for supported package managers under the hood for various setup
+// commands TODO brew for mac, choco for windows
 // make assumption that most people in software dev space are familiar
 // with package manager and use the underlying package managers provided
 // for usage
@@ -28,8 +37,8 @@ pub fn check_version() {
 
     let pkg_name = env!("CARGO_PKG_NAME");
     let current_version = env!("CARGO_PKG_VERSION");
-    let informer =
-        update_informer::new(registry::Crates, pkg_name, current_version).interval(EVERY_DAY);
+    let informer = update_informer::new(registry::Crates, pkg_name, current_version)
+        .interval(EVERY_DAY);
 
     if let Ok(Some(new_version)) = informer.check_version() {
         println!(
@@ -117,11 +126,22 @@ pub fn detect_vcs() -> VCS {
                     .bright_cyan()
                     .italic()
             ),
-            body: "Scud's declarative, high-level operations on top of the underlying VCS are intended to be used with a supported version control system.",
+            body:    "Scud's declarative, high-level operations on top of the \
+                      underlying VCS are intended to be used with a supported \
+                      version control system.",
         });
 
         log_diagnostic(DiagnosticKind::Tip {
-            body: &format!("{} {}{}{} {}", "To get started using scud's declarative, high-level operations on top of the underlying VCS, try using".yellow(), bright_yellow_backtick(), "scud init".green().italic(), bright_yellow_backtick(), "to initialize a new project with your desired VCS".yellow()),
+            body: &format!(
+                "{} {}{}{} {}",
+                "To get started using scud's declarative, high-level operations on \
+                 top of the underlying VCS, try using"
+                    .yellow(),
+                bright_yellow_backtick(),
+                "scud init".green().italic(),
+                bright_yellow_backtick(),
+                "to initialize a new project with your desired VCS".yellow()
+            ),
         });
         exit(1);
     }

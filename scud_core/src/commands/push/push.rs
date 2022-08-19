@@ -1,29 +1,18 @@
-use crate::diagnostics::{
-    log_diagnostic,
-    DiagnosticKind,
-};
+use crate::logging::general::log_execution_time;
 use crate::{
-    cli::Push,
-    logging::general::log_execution_time,
+    cli::cli::Push,
+    commands::push::executors::execute_push_dry_run,
 };
 use std::process::Command;
 use std::time::SystemTime;
 
 pub fn push_command(push_options: Push, start_time: SystemTime) {
-    // check for global config file
-
-    // check for vcs option passed in push_options
-    // will override global config file
-
     if push_options.dry_run {
         execute_push_dry_run();
+    } else if push_options.info {
+        execute_push_info();
     } else {
         execute_push();
-    }
-
-    match push_options.dry_run {
-        true => {}
-        false => {}
     }
 
     log_execution_time(start_time);
@@ -42,20 +31,7 @@ fn execute_push() {
     }
 }
 
-fn execute_push_dry_run() {
-    match Command::new("git").arg("push").arg("--dry-run").status() {
-        Ok(status) => {
-            if !status.success() {
-                panic!("Failed to push files");
-            }
-        }
-        Err(error) => {
-            panic!("Failed to push files: {}", error);
-        }
-    }
-
-    log_diagnostic(DiagnosticKind::DryRun { command: "push" });
-}
+pub fn execute_push_info() {}
 
 // TODO add helpful diagnostics for when
 // push occurs but no files are committed

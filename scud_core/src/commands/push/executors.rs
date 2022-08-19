@@ -1,15 +1,12 @@
-///////////////////////
-// Dry-run Executors //
-///////////////////////
+use std::process::Command;
 
+use crate::diagnostics::{
+    log_diagnostic,
+    DiagnosticKind,
+};
 
-////////////////////////
-// Standard Executors //
-////////////////////////
-pub fn execute_push_git() {
-    match Command::new("git")
-        .arg("push")
-        .status() {
+pub fn execute_push_dry_run() {
+    match Command::new("git").args(["push", "--dry-run"]).status() {
         Ok(status) => {
             if !status.success() {
                 panic!("Failed to push files");
@@ -19,4 +16,6 @@ pub fn execute_push_git() {
             panic!("Failed to push files: {}", error);
         }
     }
+
+    log_diagnostic(DiagnosticKind::DryRun { command: "push" });
 }

@@ -2,37 +2,37 @@ use std::time::SystemTime;
 
 use colored::Colorize;
 use dialoguer::{
-    FuzzySelect,
     theme::ColorfulTheme,
     // Input,
     // Confirm,
+    FuzzySelect,
 };
 
 use crate::{
-    cli::Init,
+    cli::cli::Init,
     logging::general::log_execution_time,
 };
 
 pub fn init_command(init_options: Init, start_time: SystemTime) {
-
-    let vcs_options = &[
-        "Git",
-        "Mercurial",
-        "Breezy",
-    ];
+    let vcs_options = &["Git", "Mercurial", "Breezy"];
 
     // println!("{}", "Initializing new repository...".green());
     match init_options.name {
-      Some(name) => {
-        println!("{}", format!("Initializing new repository: {}", name).green());
-      }
-      None => {
-        println!("{}", "Initializing new repository...".green());
-      }
+        Some(name) => {
+            println!(
+                "{}",
+                format!("Initializing new repository: {}", name).green()
+            );
+        }
+        None => {
+            println!("{}", "Initializing new repository...".green());
+        }
     }
 
     let selected_vcs = FuzzySelect::with_theme(&ColorfulTheme::default())
-        .with_prompt("Select an underlying VCS (version control system) for the repository")
+        .with_prompt(
+            "Select an underlying VCS (version control system) for the repository",
+        )
         .default(0)
         .items(&vcs_options[..])
         .interact()
@@ -53,5 +53,5 @@ pub fn init_command(init_options: Init, start_time: SystemTime) {
         }
     }
 
-     log_execution_time(start_time);
+    log_execution_time(start_time);
 }

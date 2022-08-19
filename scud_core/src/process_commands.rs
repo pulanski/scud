@@ -1,9 +1,13 @@
 use std::time::SystemTime;
 
 use crate::{
-    cli::*,
+    cli::cli::{
+        Cli,
+        Commands,
+    },
     commands::{
         commit::commit::commit_command,
+        diff::diff::diff_command,
         healthcheck::healthcheck::healthcheck_command,
         info::{
             codebase::codebase::codebase_command,
@@ -16,6 +20,7 @@ use crate::{
         unstage::unstage::unstage_command,
         update::update::update_command,
     },
+    information::InfoCommands,
 };
 
 pub fn process_args(args: Cli, start_time: SystemTime) {
@@ -71,6 +76,10 @@ pub fn process_args(args: Cli, start_time: SystemTime) {
         Commands::Pull(pull_options) => {
             println!("Pull: {}", pull_options.info);
             // pull_command(pull_options, start_time);
+        }
+
+        Commands::Diff(diff_options) => {
+            diff_command(diff_options, start_time);
         }
 
         // Commands::

@@ -1,7 +1,7 @@
 use std::time::SystemTime;
 
 use crate::{
-    cli::{
+    cli::cli::{
         State,
         VCS,
     },

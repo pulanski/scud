@@ -1,8 +1,12 @@
 use std::time::SystemTime;
 
 use crate::{
+    diagnostics::{
+        log_diagnostic,
+        DiagnosticKind,
+    },
     general::log_execution_time,
-    System,
+    information::System,
 };
 
 pub fn system_command(system_options: System, start_time: SystemTime) {
@@ -16,5 +20,7 @@ pub fn system_command(system_options: System, start_time: SystemTime) {
 }
 
 pub fn execute_system() {
-    println!("TODO");
+    log_diagnostic(DiagnosticKind::WorkInProgress {
+        feature: "System info",
+    });
 }

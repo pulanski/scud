@@ -6,12 +6,12 @@ use std::{
 use colored::Colorize;
 
 use crate::{
-    cli::Codebase,
     diagnostics::{
         log_diagnostic,
         DiagnosticKind,
     },
     general::log_execution_time,
+    information::Codebase,
     logging::helpers::{
         black_period,
         bright_yellow_backtick,
