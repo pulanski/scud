@@ -121,8 +121,8 @@ pub enum Commands {
     #[clap(alias = "st")]
     State(State),
 
-    /// Provides functionality following the Gitflow branching model.
-    /// Handles listing, starting, and finishing feature branches.
+    /// Provides feature branch functionality following the git-flow branching
+    /// model. Handles listing, starting, and finishing feature branches.
     /// [alias: f]
     #[clap(alias = "f")]
     Feature(Feature),
@@ -187,28 +187,45 @@ pub enum Commands {
     Healthcheck,
 }
 
+/// Useful information and diagnostics about your system and codebase
+/// (e.g. versions of various tools, system architecture and configuration,
+/// counting lines of code, etc.). [alias: in]
 #[derive(Debug, Args)]
 #[clap(args_conflicts_with_subcommands = true)]
 pub struct Info {
+    /// The subcommand to run.
     #[clap(subcommand)]
     pub command: Option<InfoCommands>,
 }
 
+/// The subcommands within scud's info command surface (i.e. codebase, system,
+/// cpu, all).
 #[derive(Debug, Subcommand)]
 pub enum InfoCommands {
     /// Details information about the contents of the codebase within the
     /// current directory [alias: cb]
     #[clap(alias = "cb")]
     Codebase(Codebase),
+
+    /// Details information about the system on which scud is running [alias:
+    /// sys] [alias: sys]
+    #[clap(alias = "sys")]
+    System(System),
 }
 
+/// Provides feature branch functionality following the git-flow branching
+/// model. Handles listing, starting, and finishing feature branches.
+/// [alias: f]
 #[derive(Debug, Args)]
 #[clap(args_conflicts_with_subcommands = true)]
 pub struct Feature {
+    /// The subcommand to run.
     #[clap(subcommand)]
     pub command: Option<FeatureCommands>,
 }
 
+/// The subcommands within scud's feature command surface (i.e. list, start,
+/// finish).
 #[derive(Debug, Subcommand)]
 pub enum FeatureCommands {
     /// Lists all feature branches in the current local repository.
@@ -226,6 +243,8 @@ pub enum FeatureCommands {
     // Finish(Finish),
 }
 
+/// Lists all feature branches in the current local repository.
+/// [alias: ls]
 #[derive(Debug, Args)]
 pub struct FeatureList {
     /// When true, will output the commands that scud runs under the hood
@@ -237,6 +256,7 @@ pub struct FeatureList {
     pub info: bool,
 }
 
+/// Starts a new feature branch in the current local repository.
 #[derive(Debug, Args)]
 pub struct FeatureStart {
     /// When true, will not start a feature branch but will show expected
@@ -256,6 +276,17 @@ pub struct FeatureStart {
 
 #[derive(Debug, Args)]
 pub struct Codebase {
+    /// When true, will output the commands that scud runs under the hood
+    ///
+    /// (optional).
+    /// [default: false]
+    #[clap(short, long, value_parser, required = false, default_value_t = false)]
+    #[clap(value_parser)]
+    pub info: bool,
+}
+
+#[derive(Debug, Args)]
+pub struct System {
     /// When true, will output the commands that scud runs under the hood
     ///
     /// (optional).

@@ -5,7 +5,10 @@ use crate::{
     commands::{
         commit::commit::commit_command,
         healthcheck::healthcheck::healthcheck_command,
-        info::codebase::codebase::codebase_command,
+        info::{
+            codebase::codebase::codebase_command,
+            system::system::system_command,
+        },
         init::init::init_command,
         push::push::push_command,
         stage::stage::stage_command,
@@ -25,6 +28,9 @@ pub fn process_args(args: Cli, start_time: SystemTime) {
             match info_command {
                 InfoCommands::Codebase(codebase_options) => {
                     codebase_command(codebase_options, start_time)
+                }
+                InfoCommands::System(system_options) => {
+                    system_command(system_options, start_time)
                 }
             }
         }

@@ -16,7 +16,12 @@ Cargo.lock
 # Files used by Snyk for security analysis
 .dccache
 
-# Configuration files for various tools
+# Linting rules for markdown files
 .markdownlint.json
-.cargo
+
+# Cargo build and caching files (Fleet)
+.cargo/
 fleet.toml
+
+# Directory for trunk confiruration files (handles checking, testing, merging, and monitoring your code)
+.trunk/

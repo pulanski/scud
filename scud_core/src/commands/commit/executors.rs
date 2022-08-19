@@ -48,7 +48,8 @@ pub fn execute_commit_git() {
     {
         Ok(output) => {
             let stdout = String::from_utf8_lossy(&output.stdout);
-            let successful_commit_output = stdout.split("\n").collect::<Vec<&str>>();
+            let _successful_commit_output =
+                stdout.split("\n").collect::<Vec<&str>>();
             // If the commit was successful, print the output to the user
             println!("\n");
             // println!("{}",
@@ -62,13 +63,13 @@ pub fn execute_commit_git() {
 }
 
 pub fn execute_commit_mercurial() {
-    let commit_message = process_commit_message();
+    let _commit_message = process_commit_message();
 
     todo!("execute_commit_mercurial");
 }
 
 pub fn execute_commit_breezy() {
-    let commit_message = process_commit_message();
+    let _commit_message = process_commit_message();
 
     todo!("execute_commit_breezy");
 }

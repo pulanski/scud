@@ -299,6 +299,8 @@ _NOTE: Many of scud's subcommands (where deemed appropriate) support the `--dry-
 -   [cocogitto](https://crates.io/crates/cocogitto) - Cocogitto is a set of cli tools for the conventional commit and semver specifications.
 -   [Commitizen](https://github.com/commitizen-tools/commitizen) - Create committing rules for projects 🚀 auto bump versions ⬆️ and auto changelog generation 📂
 -   [cz cli](https://github.com/commitizen-tools/commitizen) - The commitizen command line utility. #BlackLivesMatter
+-   [gitnow](https://github.com/joseluisq/gitnow) - Speed up your Git workflow. 🐠
+-   [gitflow](https://github.com/nvie/gitflow) - Git extensions to provide high-level repository operations for Vincent Driessen's branching model.
 
 <!-- -   [git-journal](https://github.com/saschagrunert/git-journal) - The Git Commit Message and Changelog Generation Framework
 -   [clog-cli](https://github.com/clog-tool/clog-cli) - Generate beautiful changelogs from your Git commit history
