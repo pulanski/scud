@@ -1,26 +1,6 @@
-use std::{
-    process::Command,
-    time::SystemTime,
-};
+use std::time::SystemTime;
 
 use colored::Colorize;
-
-use crate::{
-    cli::VCS,
-    helpers::detect_vcs,
-    logging::{
-        diagnostics::{
-            log_diagnostic,
-            DiagnosticKind,
-        },
-        helpers::{
-            black_italic_quote,
-            bright_yellow_backtick,
-        },
-    },
-};
-
-use super::helpers::black_period;
 
 pub fn log_execution_time(start_time: SystemTime) {
     let end_time = SystemTime::now();

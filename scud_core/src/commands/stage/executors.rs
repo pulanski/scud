@@ -38,6 +38,10 @@ pub fn execute_stage_info() {
 // TODO add doc comments
 
 pub fn execute_stage_git() {
+    // check for unstaged untracked files
+
+    
+
     match Command::new("git").args(["add", "-A"]).output() {
         Ok(_) /* git add -A doesn't emit any output */ => {
             execute_state_git();

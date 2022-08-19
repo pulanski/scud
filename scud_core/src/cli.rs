@@ -24,10 +24,13 @@ pub enum VCS {
     Git,
     Mercurial,
     Breezy,
-    // SVN, // TODO add support for SVN (maybe), requires different strategy
-    // CVS, // TODO add support for CVS (maybe), requires different strategy for
-    // detection Bazaar, not actively maintained, Breezy is recommended
-    // alternative.
+    // SVN, // TODO add support for SVN (maybe), requires different strategy for
+    // TODO detection and general usage
+
+    //CVS, // TODO add support for CVS requires
+    // TODO different strategy for detection and general usage
+    // Bazaar, not actively maintained, Breezy is recommended alternative and is
+    // supported instead.
 }
 
 /// Command Line Argument Parser for scud
@@ -73,6 +76,9 @@ pub enum Commands {
 
     /// Initializes a local repository with a given VCS provider (currently
     /// supported: git, mercurial, breezy). [alias: i]
+    // TODO Additionally, asks you if you would like to initialize the
+    // repository with a basic branch structure following the GitFlow
+    // branching model.
     // (currently supported: Git, SVN, CVS, Mercurial, Bazaar).
     // This command is useful for initializing a repository that
     // is not yet tracked by a particular Version Control System.
@@ -115,6 +121,12 @@ pub enum Commands {
     #[clap(alias = "st")]
     State(State),
 
+    /// Provides functionality following the Gitflow branching model.
+    /// Handles listing, starting, and finishing feature branches.
+    /// [alias: f]
+    #[clap(alias = "f")]
+    Feature(Feature),
+
     /// Show changes between the working tree and the index or a tree
     /// [alias: d]
     // This command is useful for seeing the changes between the working tree and the
@@ -151,6 +163,15 @@ pub enum Commands {
     #[clap(alias = "pl")]
     Pull(Pull),
 
+    // Powerful one-liner which can be thought of as
+    // sequentially running the following commands:
+    //
+    // 1. scud stage
+    // 2. scud commit
+    // 3. scud push
+    #[clap(alias = "stream")]
+    Upstream(Upstream),
+
     /// Handles the process of updating scud to the latest version.
     /// [alias: up]
     // This command is useful for updating scud to the latest version.
@@ -179,6 +200,58 @@ pub enum InfoCommands {
     /// current directory [alias: cb]
     #[clap(alias = "cb")]
     Codebase(Codebase),
+}
+
+#[derive(Debug, Args)]
+#[clap(args_conflicts_with_subcommands = true)]
+pub struct Feature {
+    #[clap(subcommand)]
+    pub command: Option<FeatureCommands>,
+}
+
+#[derive(Debug, Subcommand)]
+pub enum FeatureCommands {
+    /// Lists all feature branches in the current local repository.
+    /// [alias: ls]
+    #[clap(alias = "ls")]
+    List(FeatureList),
+
+    /// Starts a new feature branch in the current local repository.
+    /// [alias: st]
+    #[clap(alias = "st")]
+    Start(FeatureStart),
+    // /// Finishes the current feature branch in the current local repository.
+    // /// [alias: fin]
+    // #[clap(alias = "fin")]
+    // Finish(Finish),
+}
+
+#[derive(Debug, Args)]
+pub struct FeatureList {
+    /// When true, will output the commands that scud runs under the hood
+    ///
+    /// (optional).
+    /// [default: false]
+    #[clap(short, long, value_parser, required = false, default_value_t = false)]
+    #[clap(value_parser)]
+    pub info: bool,
+}
+
+#[derive(Debug, Args)]
+pub struct FeatureStart {
+    /// When true, will not start a feature branch but will show expected
+    /// output. (optional).
+    /// [default: false]
+    #[clap(short, long, value_parser, required = false, default_value_t = false)]
+    pub dry_run: bool,
+
+    /// When true, will output the commands that scud runs under the hood
+    ///
+    /// (optional).
+    /// [default: false]
+    #[clap(short, long, value_parser, required = false, default_value_t = false)]
+    #[clap(value_parser)]
+    pub info: bool,
 }
 
 #[derive(Debug, Args)]
@@ -298,14 +371,21 @@ pub struct Diff {
     pub info: bool,
 }
 
+// TODO add documentation for this command
+#[derive(Debug, Args)]
+pub struct Upstream {
+    /// When true, will output the commands that scud runs under the hood.
+    /// (optional).
+    /// [default: false]
+    #[clap(short, long, value_parser, required = false, default_value_t = false)]
+    pub info: bool,
+}
+
 // / Shellder
 // / the layer over your shell
 // / healthcheck shows which shells are installed
 // /
-// / enum PackageManager {
-// /     name: String,
-// /     href:
-// / }
+// brainstorming
 // /
 // / shellder setup fish
 // / shellder teardown fish
