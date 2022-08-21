@@ -1,16 +1,18 @@
 [package]
 name = "scud_core"
 description = "Core library of scud"
-authors = [
-	"Josh Kersey <pulanski12@gmail.com>",
-]
+authors = ["Josh Kersey <pulanski12@gmail.com>"]
 license = "MIT"
-version = "0.10.1"
+version = "0.11.0"
 edition = "2021"
 homepage = "https://github.com/pulanski/scud"
 repository = "https://github.com/pulanski/scud"
 keywords = ["cli", "vcs", "git", "github", "gitlab"]
-categories = ["command-line-interface", "command-line-utilities", "development-tools"]
+categories = [
+  "command-line-interface",
+  "command-line-utilities",
+  "development-tools",
+]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -20,6 +22,5 @@ clearscreen = "1.0.10"
 colored = "2"
 dialoguer = { version = "0.10.2", features = ["fuzzy-select"] }
 indicatif = "0.17.0"
-thiserror = "1.0.32"
 update-informer = "0.5.0"
 yansi = "0.5.1"

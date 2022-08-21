@@ -648,14 +648,13 @@ dependencies = [
 
 [[package]]
 name = "scud_core"
-version = "0.10.1"
+version = "0.11.0"
 dependencies = [
  "clap",
  "clearscreen",
  "colored",
  "dialoguer",
  "indicatif",
- "thiserror",
  "update-informer",
  "yansi",
 ]

@@ -276,7 +276,15 @@ pub fn execute_state_git() {
 
             let branch_metadata = status.next().unwrap();
             println!("{}", branch_metadata.bright_black().italic());
+            let branch_metadata_tokens = branch_metadata.split('[');
+
+            let ahead_behind_raw = branch_metadata_tokens.last().unwrap();
+            let ahead_behind = ahead_behind_raw.split(']').next().unwrap();
+            println!("{}", ahead_behind.bright_black().italic());
+
             // [behind 1]
+            // [ahead 1]
+            // [ahead 1, behind 1]
             // let ahead = ahead_behind_split.next().unwrap();
             // let behind = ahead_behind_split.next().unwrap();
             // let ahead_int = ahead.parse::<i32>().unwrap();
