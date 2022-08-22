@@ -63,23 +63,23 @@ pub fn execute_state_git() {
             // Log local branches
             println!("  {}\n", " LOCAL ".black().on_magenta());
             let mut i = 0;
-            let mut local_branches_len = local_branches.len();
+            let local_branches_len = local_branches.len();
             for mut branch in local_branches {
                 branch = branch.trim();
-                println!("i: {}", i);
                 i += 1;
 
                 // check if on first or last branch
                 if i == 1 {
-                    print!("  {}", "FIRST".black().on_bright_yellow());
+                    print!("  {}  ", "/-".magenta());
                 } else if i == local_branches_len {
-                    print!("  {}", "LAST".black().on_bright_yellow());
+                    print!("  {}  ", "\\-".magenta());
                 } else {
-                    print!("  {}", "  ".black().on_bright_yellow());
+                    print!("  {}  ", "--".magenta());
                 }
 
                 // check if branch is current branch
                 if branch.contains('*') {
+                    print!("{}", "--".red());
                     print!("{}", branch.replace("*", "").cyan());
                     println!(
                         "{}{}",
@@ -89,10 +89,47 @@ pub fn execute_state_git() {
                 } else {
                     println!("{}", branch.cyan());
                 }
-            }
 
-            // Print block between local and remote branches
-            println!("\n{}\n", " ------------------------- ".black().on_red());
+                // check if branch is ahead or behind
+                if branch.contains('[') {
+                    println!(
+                        "{}{}",
+                        " <-".black().italic(),
+                        " AHEAD ".bright_yellow()
+                    );
+                } else if branch.contains(']') {
+                    println!(
+                        "{}{}",
+                        " <-".black().italic(),
+                        " BEHIND ".bright_yellow()
+                    );
+                }
+
+                // Get the latest commit hash for the branch
+                let mut latest_commit_hash = String::new();
+                match Command::new("git")
+                    .args(&["log", "-1", "--pretty=%H", branch])
+                    .output()
+                {
+                    Ok(output) => {
+                        latest_commit_hash =
+                            String::from_utf8_lossy(&output.stdout).to_string();
+                    }
+                    Err(error) => {
+                        log_diagnostic(DiagnosticKind::Error {
+                            subject: "git log",
+                            body:    &format!("{}", error),
+                        });
+                    }
+                }
+
+                // print separator
+                if i != local_branches_len {
+                    print!("  {}", "|".blue());
+                    // print latest commit hash
+                    println!("     {}", latest_commit_hash.cyan());
+                }
+            }
 
             // Collect remote branches
             let remote_branches = stdout

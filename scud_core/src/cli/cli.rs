@@ -1,12 +1,23 @@
 use crate::{
-    branching::Feature,
+    branching::{
+        Branch,
+        Feature,
+    },
     cli::{
         information::Info,
-        version_control::{Diff, Init, New},
+        version_control::{
+            Diff,
+            Init,
+            New,
+        },
     },
 };
 
-use clap::{Args, Parser, Subcommand};
+use clap::{
+    Args,
+    Parser,
+    Subcommand,
+};
 
 // TODO add scud stash
 // add scud pop
@@ -116,12 +127,19 @@ pub enum Commands {
     Unstage(Unstage),
 
     /// Checks the status of the local repository (e.g. seeing which files are
-    /// untracked, staged, etc. as well as branching information).
+    /// untracked, staged, etc.).
     /// [alias: st]
     // This command is useful for checking the status of the local repository in
     // terms of seeing which files are untracked, staged, etc.
     #[clap(alias = "st")]
     State(State),
+
+    /// Primary subcommand for working with branches.
+    /// Handles CRUD operations for branches as well as
+    /// listing branches.
+    /// [alias: br]
+    #[clap(alias = "br")]
+    Branch(Branch),
 
     /// Provides feature branch functionality following the git-flow branching
     /// model. Handles listing, starting, and finishing feature branches.

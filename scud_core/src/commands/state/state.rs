@@ -1,14 +1,25 @@
 use std::time::SystemTime;
 
 use crate::{
-    cli::cli::{State, VCS},
+    cli::cli::{
+        State,
+        VCS,
+    },
     commands::state::executors::{
-        execute_state_breezy, execute_state_git, execute_state_info,
+        execute_state_breezy,
+        execute_state_git,
+        execute_state_info,
         execute_state_mercurial,
     },
-    diagnostics::{log_diagnostic, DiagnosticKind},
+    diagnostics::{
+        log_diagnostic,
+        DiagnosticKind,
+    },
     helpers::detect_vcs,
-    logging::{general::log_execution_time, helpers::bright_yellow_backtick},
+    logging::{
+        general::log_execution_time,
+        helpers::bright_yellow_backtick,
+    },
 };
 
 use colored::Colorize;
@@ -22,8 +33,6 @@ pub fn state_command(state_options: State, start_time: SystemTime) {
 
     log_execution_time(start_time);
 }
-
-// TODO refactor to scud_version_control crate
 
 fn execute_state() {
     let vcs = detect_vcs();
