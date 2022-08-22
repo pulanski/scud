@@ -27,6 +27,11 @@ pub fn execute_system() {
 }
 
 pub fn execute_system_info() {
+    log_diagnostic(DiagnosticKind::ScudCommandInfo {
+        command:     "system information",
+        description: "This command is intended to display detailed information \
+                      about the system on which scud is running [alias: sys]",
+    });
     log_diagnostic(DiagnosticKind::GeneralCommandInfo {
         command_name: "info system",
         commands:     vec![

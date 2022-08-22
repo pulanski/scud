@@ -9,41 +9,34 @@ use crate::{
     diagnostics::{
         log_diagnostic,
         DiagnosticKind,
+        ExternalCommandInfo,
     },
     general::log_execution_time,
     information::Codebase,
-    logging::helpers::{
-        black_period,
-        bright_yellow_backtick,
-    },
 };
 
 // TODO refactor this command to follow pattern of others (stage, state)
 pub fn info_codebase_command(codebase_options: Codebase, start_time: SystemTime) {
     if codebase_options.info {
-        println!(
-            "{} {} {}{}{} {} {} {}{}{} {}{}\n",
-            " INFO ".black().on_yellow(),
-            "Under the hood, the".yellow().italic(),
-            bright_yellow_backtick(),
-            "onefetch".cyan().italic(),
-            bright_yellow_backtick(),
-            "(https://github.com/o2sh/onefetch)".black().italic(),
-            "command is called when".yellow().italic(),
-            bright_yellow_backtick(),
-            "scud info codebase".green().italic(),
-            bright_yellow_backtick(),
-            "is invoked".yellow().italic(),
-            black_period()
-        );
-    } else {
         log_diagnostic(DiagnosticKind::ScudCommandInfo {
             command:     "codebase information",
             description: "This command is intended to display detailed information \
                           about the contents of the codebase within the current \
-                          directory.",
+                          directory [alias: cb]
+                          ",
         });
-
+        log_diagnostic(DiagnosticKind::GeneralCommandInfo {
+            command_name: "codebase",
+            commands:     [ExternalCommandInfo {
+                command_name:        "info codebase",
+                command_link:        "https://github.com/o2sh/onefetch",
+                command_description: "display detailed information about the \
+                                      contents of the codebase within the current \
+                                      directory.",
+            }]
+            .to_vec(),
+        });
+    } else {
         match Command::new("onefetch").output() {
             Ok(output) => {
                 println!("{}", String::from_utf8_lossy(&output.stdout));

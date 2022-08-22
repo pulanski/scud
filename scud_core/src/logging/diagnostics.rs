@@ -6,7 +6,9 @@ use colored::{
 use crate::logging::helpers::{
     black_colon,
     black_comma,
+    black_italic_close_paren,
     black_italic_implies,
+    black_italic_open_paren,
     black_period,
     bright_yellow_backtick,
     bright_yellow_dots,
@@ -56,7 +58,7 @@ pub enum DiagnosticKind<'a> {
     },
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct ExternalCommandInfo<'a> {
     pub command_name:        &'a str,
     pub command_link:        &'a str,
@@ -122,7 +124,13 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
             command_name,
             commands,
         } => {
-                println!("\n{}{}{}{}{}{}{}{}{}{}\n", 
+            // TODO
+            // [ ] get the successful commit pipeline finished
+            // [ ] get the current branch status (behind 1, ahead 1)
+            //      when invoking state
+            // [ ] get the branch listing command finished
+            println!(
+                "{}{}{}{}{}{}{}{}{}{}\n",
                 " INFO ".black().on_yellow(),
                 " Under the hood".bright_yellow().italic(),
                 black_comma(),
@@ -133,19 +141,49 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
                 bright_yellow_backtick(),
                 " is invoked".yellow().italic(),
                 black_colon(),
+            );
+            for general_command in commands {
+                println!(
+                    "{}{}{}{} {}{}{} {} {}{}{}\n",
+                    "  *- ".bright_red().italic(),
+                    bright_yellow_backtick(),
+                    general_command.command_name.cyan().italic(),
+                    bright_yellow_backtick(),
+                    black_italic_open_paren(),
+                    general_command.command_link.black().italic(),
+                    black_italic_close_paren(),
+                    bright_yellow_dots(),
+                    "to ".yellow().italic(),
+                    general_command.command_description.yellow().italic(),
+                    black_period(),
                 );
-                for general_command in commands {
-                   println!("{}{}{}{} {} {} {}{}\n",
-                       "  *- ".bright_red().italic(),
-                bright_yellow_backtick(),
-                general_command.command_name.cyan().italic(),
-                bright_yellow_backtick(),
-                general_command.command_link.black().italic(),
-                bright_yellow_dots(),
-                general_command.command_description.yellow().italic(),
+            }
+            println!(
+                "{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}\n",
+                " NOTE ".black().on_bright_yellow(),
+                " If any of these commands are ".bright_yellow().italic(),
+                "not installed ".red().italic(),
+                "on your system".bright_yellow().italic(),
+                black_comma(),
+                " scud ".cyan().italic(),
+                "will encounter a ".bright_yellow().italic(),
+                "runtime error".red().italic(),
+                " when ".bright_yellow().italic(),
+                yellow_backtick(),
+                "scud ".green().italic(),
+                command_name.green().italic(),
+                yellow_backtick(),
+                " is invoked and will provide you with some "
+                    .bright_yellow()
+                    .italic(),
+                "help getting up and running".yellow().italic(),
+                " with the various dependencies that are the backbone for the many \
+                 of the features of "
+                    .bright_yellow()
+                    .italic(),
+                "scud".cyan().italic(),
                 black_period(),
-);
-                }
+            );
         }
         DiagnosticKind::Error { subject, body } => {
             println!(

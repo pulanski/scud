@@ -33,12 +33,12 @@ pub fn black_colon() -> ColoredString {
     ":".black()
 }
 
-pub fn black_open_paren() -> ColoredString {
-    "(".black()
+pub fn black_italic_open_paren() -> ColoredString {
+    "(".black().italic()
 }
 
-pub fn black_close_paren() -> ColoredString {
-    ")".black()
+pub fn black_italic_close_paren() -> ColoredString {
+    ")".black().italic()
 }
 
 pub fn black_italic_implies() -> ColoredString {
