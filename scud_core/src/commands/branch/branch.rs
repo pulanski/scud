@@ -66,8 +66,7 @@ pub fn get_branch_command(start_time: SystemTime) {
 
     match selected_subcommand {
         0 => {
-            let branch_list_options = BranchList { info: false };
-            branch_list_command(branch_list_options, start_time);
+            branch_list_command(BranchList { info: false }, start_time);
         }
         1 => {
             log_diagnostic(DiagnosticKind::WorkInProgress {
@@ -81,15 +80,4 @@ pub fn get_branch_command(start_time: SystemTime) {
         }
         _ => unreachable!(),
     }
-
-    // match selected_branch_command {
-    // BranchCommands::List(branch_list_options) => {
-    //     branch_list_command(branch_list_options, start_time);
-    // }
-    // _ => {
-    //     log_diagnostic(DiagnosticKind::WorkInProgress {
-    //         feature: "branching",
-    //     });
-    // }
-    // }
 }

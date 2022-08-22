@@ -44,3 +44,7 @@ pub fn black_close_paren() -> ColoredString {
 pub fn black_italic_implies() -> ColoredString {
     "=>".black().italic()
 }
+
+pub fn bright_yellow_dots() -> ColoredString {
+    "...".bright_yellow().italic()
+}

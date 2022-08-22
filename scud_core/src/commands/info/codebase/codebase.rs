@@ -1,16 +1,25 @@
-use std::{process::Command, time::SystemTime};
+use std::{
+    process::Command,
+    time::SystemTime,
+};
 
 use colored::Colorize;
 
 use crate::{
-    diagnostics::{log_diagnostic, DiagnosticKind},
+    diagnostics::{
+        log_diagnostic,
+        DiagnosticKind,
+    },
     general::log_execution_time,
     information::Codebase,
-    logging::helpers::{black_period, bright_yellow_backtick},
+    logging::helpers::{
+        black_period,
+        bright_yellow_backtick,
+    },
 };
 
 // TODO refactor this command to follow pattern of others (stage, state)
-pub fn codebase_command(codebase_options: Codebase, start_time: SystemTime) {
+pub fn info_codebase_command(codebase_options: Codebase, start_time: SystemTime) {
     if codebase_options.info {
         println!(
             "{} {} {}{}{} {} {} {}{}{} {}{}\n",
@@ -29,7 +38,7 @@ pub fn codebase_command(codebase_options: Codebase, start_time: SystemTime) {
         );
     } else {
         log_diagnostic(DiagnosticKind::CommandInfo {
-            command: "codebase information",
+            command:     "codebase information",
             description: "This command is intended to display detailed information \
                           about the contents of the codebase within the current \
                           directory.",
@@ -45,11 +54,11 @@ pub fn codebase_command(codebase_options: Codebase, start_time: SystemTime) {
                         "onefetch {}",
                         "(https://github.com/o2sh/onefetch)".black().italic()
                     ),
-                    body: "is not installed on system locally or not found in \
+                    body:    "is not installed on system locally or not found in \
                               PATH.",
                 });
                 log_diagnostic(DiagnosticKind::Hint {
-                    body: &format!(
+                    body:    &format!(
                         "{}{}{}",
                         "If you wish to use scud's".yellow(),
                         "codebase information".bright_yellow().italic(),

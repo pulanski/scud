@@ -1,4 +1,7 @@
-use clap::{Args, Subcommand};
+use clap::{
+    Args,
+    Subcommand,
+};
 
 /// Useful information and diagnostics about your system and codebase
 /// (e.g. versions of various tools, system architecture and configuration,
@@ -20,8 +23,8 @@ pub enum InfoCommands {
     #[clap(alias = "cb")]
     Codebase(Codebase),
 
-    /// Details information about the system on which scud is running [alias:
-    /// sys] [alias: sys]
+    /// Details information about the system on which scud is running
+    /// [alias: sys]
     #[clap(alias = "sys")]
     System(System),
 }

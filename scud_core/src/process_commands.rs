@@ -2,20 +2,14 @@ use std::time::SystemTime;
 
 use crate::{
     branch::branch::process_branch_commands,
-    branching::BranchCommands,
     cli::cli::{
         Cli,
         Commands,
     },
     commands::{
-        branch::list::list::branch_list_command,
         commit::commit::commit_command,
         diff::diff::diff_command,
         healthcheck::healthcheck::healthcheck_command,
-        info::{
-            codebase::codebase::codebase_command,
-            system::system::system_command,
-        },
         init::init::init_command,
         push::push::push_command,
         stage::stage::stage_command,
@@ -23,11 +17,7 @@ use crate::{
         unstage::unstage::unstage_command,
         update::update::update_command,
     },
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
-    information::InfoCommands,
+    info::info::process_info_commands,
 };
 
 pub fn process_args(args: Cli, start_time: SystemTime) {
@@ -35,16 +25,7 @@ pub fn process_args(args: Cli, start_time: SystemTime) {
 
     match args {
         Commands::Info(info_commands) => {
-            let info_command = info_commands.command.unwrap();
-
-            match info_command {
-                InfoCommands::Codebase(codebase_options) => {
-                    codebase_command(codebase_options, start_time)
-                }
-                InfoCommands::System(system_options) => {
-                    system_command(system_options, start_time)
-                }
-            }
+            process_info_commands(info_commands, start_time);
         }
 
         //////////////////////////////////////////////////////////////
@@ -88,6 +69,9 @@ pub fn process_args(args: Cli, start_time: SystemTime) {
         Commands::Diff(diff_options) => {
             diff_command(diff_options, start_time);
         }
+
+        // TODO
+        // [ ] refactor info command to avoid panic
 
         ///////////////////////////////////
         // Branching commands along with //
