@@ -29,8 +29,19 @@ pub struct Branch {
 /// rename).
 #[derive(Debug, Subcommand)]
 pub enum BranchCommands {
+    /// Lists all branches in the current repository (both local and remote).
+    /// [alias: ls]
+    #[clap(alias = "ls")]
     List(BranchList),
+
+    /// Renames a branch in the current repository.
+    /// [alias: rn]
+    #[clap(alias = "rn")]
     Rename(BranchRename),
+
+    /// Deletes a branch in the current repository (local or remote).
+    /// [alias: del]
+    #[clap(alias = "del")]
     Delete(BranchDelete),
 }
 

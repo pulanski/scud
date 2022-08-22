@@ -1,13 +1,20 @@
 use std::time::SystemTime;
 
 use crate::{
-    cli::cli::{Cli, Commands},
+    branch::branch::process_branch_commands,
+    branching::BranchCommands,
+    cli::cli::{
+        Cli,
+        Commands,
+    },
     commands::{
+        branch::list::list::branch_list_command,
         commit::commit::commit_command,
         diff::diff::diff_command,
         healthcheck::healthcheck::healthcheck_command,
         info::{
-            codebase::codebase::codebase_command, system::system::system_command,
+            codebase::codebase::codebase_command,
+            system::system::system_command,
         },
         init::init::init_command,
         push::push::push_command,
@@ -15,6 +22,10 @@ use crate::{
         state::state::state_command,
         unstage::unstage::unstage_command,
         update::update::update_command,
+    },
+    diagnostics::{
+        log_diagnostic,
+        DiagnosticKind,
     },
     information::InfoCommands,
 };
@@ -78,7 +89,13 @@ pub fn process_args(args: Cli, start_time: SystemTime) {
             diff_command(diff_options, start_time);
         }
 
-        // Commands::
+        ///////////////////////////////////
+        // Branching commands along with //
+        // branching strategies          //
+        ///////////////////////////////////
+        Commands::Branch(branch_commands) => {
+            process_branch_commands(branch_commands, start_time)
+        }
 
         ////////////////////////////
         // Various setup commands //
