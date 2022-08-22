@@ -11,18 +11,9 @@ use crate::{
         execute_branch_list_info,
         execute_branch_list_mercurial,
     },
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
     helpers::detect_vcs,
-    logging::{
-        general::log_execution_time,
-        helpers::bright_yellow_backtick,
-    },
+    logging::general::log_execution_time,
 };
-
-use colored::Colorize;
 
 pub fn branch_list_command(branch_list_options: BranchList, start_time: SystemTime) {
     if branch_list_options.info {

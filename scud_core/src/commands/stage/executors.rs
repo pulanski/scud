@@ -1,7 +1,10 @@
 use std::process::Command;
 
 use crate::{
-    diagnostics::{log_diagnostic, DiagnosticKind},
+    diagnostics::{
+        log_diagnostic,
+        DiagnosticKind,
+    },
     state::executors::execute_state_git,
 };
 
@@ -10,8 +13,8 @@ pub fn execute_stage_dry_run() {
 }
 
 pub fn execute_stage_info() {
-    log_diagnostic(DiagnosticKind::CommandInfo {
-        command: "stage",
+    log_diagnostic(DiagnosticKind::ScudCommandInfo {
+        command:     "stage",
         description: "This command is intended to stage all modified files in the \
                       current local repository ensuring they are ready to be \
                       committed. It is smart enough to detect the underlying \
@@ -21,12 +24,12 @@ pub fn execute_stage_info() {
                       and will stage all files.",
     });
     log_diagnostic(DiagnosticKind::VCSInfo {
-        command_name: "stage",
-        git_command: "git add -A",
+        command_name:      "stage",
+        git_command:       "git add -A",
         mercurial_command: "Algorithm pseudocode:\n\t1. (Navigate to root of \
                             repository)\n\t2. hg add .\n\t3. (Navigate back to \
                             invocation directory)",
-        breezy_command: "Algorithm pseudocode:\n\t1. (Navigate to root of \
+        breezy_command:    "Algorithm pseudocode:\n\t1. (Navigate to root of \
                             repository)\n\t2. bzr add .\n\t3. (Navigate back to \
                             invocation directory)",
     });

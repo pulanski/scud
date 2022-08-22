@@ -1,14 +1,22 @@
-use colored::{Color, Colorize};
+use colored::{
+    Color,
+    Colorize,
+};
 
 use crate::logging::helpers::{
-    black_colon, black_comma, black_italic_implies, black_period,
-    bright_yellow_backtick, yellow_backtick,
+    black_colon,
+    black_comma,
+    black_italic_implies,
+    black_period,
+    bright_yellow_backtick,
+    bright_yellow_dots,
+    yellow_backtick,
 };
 
 #[derive(Debug)]
 pub enum DiagnosticKind<'a> {
-    CommandInfo {
-        command: &'a str,
+    ScudCommandInfo {
+        command:     &'a str,
         description: &'a str,
     },
     DryRun {
@@ -16,10 +24,10 @@ pub enum DiagnosticKind<'a> {
     },
     Error {
         subject: &'a str,
-        body: &'a str,
+        body:    &'a str,
     },
     Hint {
-        body: &'a str,
+        body:    &'a str,
         // TODO refactor body to
         // service: &'a str,
         // provider: &'a str,
@@ -33,19 +41,33 @@ pub enum DiagnosticKind<'a> {
         body: &'a str,
     },
     VCSInfo {
-        command_name: &'a str,
-        git_command: &'a str,
+        command_name:      &'a str,
+        git_command:       &'a str,
         mercurial_command: &'a str,
-        breezy_command: &'a str,
+        breezy_command:    &'a str,
+    },
+    GeneralCommandInfo {
+        command_name: &'a str, // e.g. info system => `scud info system`
+        commands:     Vec<ExternalCommandInfo<'a>>, /* (command_name, link,
+                                * description) */
     },
     WorkInProgress {
         feature: &'a str,
     },
 }
 
+#[derive(Debug)]
+pub struct ExternalCommandInfo<'a> {
+    pub command_name:        &'a str,
+    pub command_link:        &'a str,
+    pub command_description: &'a str,
+}
+
+// pub struct Command
+
 pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
     match diagnostic_kind {
-        DiagnosticKind::CommandInfo {
+        DiagnosticKind::ScudCommandInfo {
             command,
             description,
         } => {
@@ -95,6 +117,35 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
                 " flag".bright_yellow().italic(),
                 black_period(),
             );
+        }
+        DiagnosticKind::GeneralCommandInfo {
+            command_name,
+            commands,
+        } => {
+                println!("\n{}{}{}{}{}{}{}{}{}{}\n", 
+                " INFO ".black().on_yellow(),
+                " Under the hood".bright_yellow().italic(),
+                black_comma(),
+                " the following commands are called when ".yellow().italic(),
+                bright_yellow_backtick(),
+                "scud ".green().italic(),
+                command_name.green().italic(),
+                bright_yellow_backtick(),
+                " is invoked".yellow().italic(),
+                black_colon(),
+                );
+                for general_command in commands {
+                   println!("{}{}{}{} {} {} {}{}\n",
+                       "  *- ".bright_red().italic(),
+                bright_yellow_backtick(),
+                general_command.command_name.cyan().italic(),
+                bright_yellow_backtick(),
+                general_command.command_link.black().italic(),
+                bright_yellow_dots(),
+                general_command.command_description.yellow().italic(),
+                black_period(),
+);
+                }
         }
         DiagnosticKind::Error { subject, body } => {
             println!(

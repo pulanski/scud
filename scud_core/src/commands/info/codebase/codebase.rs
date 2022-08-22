@@ -37,7 +37,7 @@ pub fn info_codebase_command(codebase_options: Codebase, start_time: SystemTime)
             black_period()
         );
     } else {
-        log_diagnostic(DiagnosticKind::CommandInfo {
+        log_diagnostic(DiagnosticKind::ScudCommandInfo {
             command:     "codebase information",
             description: "This command is intended to display detailed information \
                           about the contents of the codebase within the current \

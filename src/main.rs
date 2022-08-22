@@ -3,7 +3,9 @@ use std::time::SystemTime;
 use clap::Parser;
 
 use scud_core::{
-    cli::cli::Cli, helpers::check_version, process_commands::process_args,
+    cli::cli::Cli,
+    helpers::check_version,
+    process_commands::process_args,
 };
 
 fn main() {

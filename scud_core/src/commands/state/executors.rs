@@ -8,7 +8,7 @@ use crate::diagnostics::{
 };
 
 pub fn execute_state_info() {
-    log_diagnostic(DiagnosticKind::CommandInfo {
+    log_diagnostic(DiagnosticKind::ScudCommandInfo {
         command:     "state",
         description: "This command is intended to display repository metadata \
                       including branching information as well as file changes in a \
