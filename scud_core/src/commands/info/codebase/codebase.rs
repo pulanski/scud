@@ -1,16 +1,9 @@
-use std::{
-    process::Command,
-    time::SystemTime,
-};
+use std::{process::Command, time::SystemTime};
 
 use colored::Colorize;
 
 use crate::{
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-        ExternalCommandInfo,
-    },
+    diagnostics::{log_diagnostic, DiagnosticKind, ExternalCommandInfo},
     general::log_execution_time,
     information::Codebase,
 };
@@ -19,7 +12,7 @@ use crate::{
 pub fn info_codebase_command(codebase_options: Codebase, start_time: SystemTime) {
     if codebase_options.info {
         log_diagnostic(DiagnosticKind::ScudCommandInfo {
-            command:     "codebase information",
+            command: "codebase information",
             description: "This command is intended to display detailed information \
                           about the contents of the codebase within the current \
                           directory [alias: cb]
@@ -27,9 +20,9 @@ pub fn info_codebase_command(codebase_options: Codebase, start_time: SystemTime)
         });
         log_diagnostic(DiagnosticKind::GeneralCommandInfo {
             command_name: "codebase",
-            commands:     [ExternalCommandInfo {
-                command_name:        "info codebase",
-                command_link:        "https://github.com/o2sh/onefetch",
+            commands: [ExternalCommandInfo {
+                command_name: "info codebase",
+                command_link: "https://github.com/o2sh/onefetch",
                 command_description: "display detailed information about the \
                                       contents of the codebase within the current \
                                       directory.",
@@ -47,11 +40,11 @@ pub fn info_codebase_command(codebase_options: Codebase, start_time: SystemTime)
                         "onefetch {}",
                         "(https://github.com/o2sh/onefetch)".black().italic()
                     ),
-                    body:    "is not installed on system locally or not found in \
+                    body: "is not installed on system locally or not found in \
                               PATH.",
                 });
                 log_diagnostic(DiagnosticKind::Hint {
-                    body:    &format!(
+                    body: &format!(
                         "{}{}{}",
                         "If you wish to use scud's".yellow(),
                         "codebase information".bright_yellow().italic(),

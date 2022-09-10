@@ -1,24 +1,15 @@
-use colored::{
-    Color,
-    Colorize,
-};
+use colored::{Color, Colorize};
 
 use crate::logging::helpers::{
-    black_colon,
-    black_comma,
-    black_italic_close_paren,
-    black_italic_implies,
-    black_italic_open_paren,
-    black_period,
-    bright_yellow_backtick,
-    bright_yellow_dots,
-    yellow_backtick,
+    black_colon, black_comma, black_italic_close_paren, black_italic_implies,
+    black_italic_open_paren, black_period, bright_yellow_backtick,
+    bright_yellow_dots, yellow_backtick,
 };
 
 #[derive(Debug)]
 pub enum DiagnosticKind<'a> {
     ScudCommandInfo {
-        command:     &'a str,
+        command: &'a str,
         description: &'a str,
     },
     DryRun {
@@ -26,10 +17,10 @@ pub enum DiagnosticKind<'a> {
     },
     Error {
         subject: &'a str,
-        body:    &'a str,
+        body: &'a str,
     },
     Hint {
-        body:    &'a str,
+        body: &'a str,
         // TODO refactor body to
         // service: &'a str,
         // provider: &'a str,
@@ -43,14 +34,14 @@ pub enum DiagnosticKind<'a> {
         body: &'a str,
     },
     VCSInfo {
-        command_name:      &'a str,
-        git_command:       &'a str,
+        command_name: &'a str,
+        git_command: &'a str,
         mercurial_command: &'a str,
-        breezy_command:    &'a str,
+        breezy_command: &'a str,
     },
     GeneralCommandInfo {
         command_name: &'a str, // e.g. info system => `scud info system`
-        commands:     Vec<ExternalCommandInfo<'a>>, /* (command_name, link,
+        commands: Vec<ExternalCommandInfo<'a>>, /* (command_name, link,
                                 * description) */
     },
     WorkInProgress {
@@ -60,8 +51,8 @@ pub enum DiagnosticKind<'a> {
 
 #[derive(Debug, Clone)]
 pub struct ExternalCommandInfo<'a> {
-    pub command_name:        &'a str,
-    pub command_link:        &'a str,
+    pub command_name: &'a str,
+    pub command_link: &'a str,
     pub command_description: &'a str,
 }
 

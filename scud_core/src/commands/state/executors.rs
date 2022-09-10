@@ -2,21 +2,18 @@ use std::process::Command;
 
 use colored::Colorize;
 
-use crate::diagnostics::{
-    log_diagnostic,
-    DiagnosticKind,
-};
+use crate::diagnostics::{log_diagnostic, DiagnosticKind};
 
 pub fn execute_state_info() {
     log_diagnostic(DiagnosticKind::ScudCommandInfo {
-        command:     "state",
+        command: "state",
         description: "This command is intended to display repository metadata \
                       including branching information as well as file changes in a \
                       concise, human-readable format.",
     });
     log_diagnostic(DiagnosticKind::VCSInfo {
-        command_name:      "state",
-        git_command:       &format!(
+        command_name: "state",
+        git_command: &format!(
             "{} {}",
             "git status",
             "(along with other commands for more rich output)".bright_yellow()
@@ -26,7 +23,7 @@ pub fn execute_state_info() {
             "hg status",
             "(along with other commands for more rich output)".bright_yellow()
         ),
-        breezy_command:    &format!(
+        breezy_command: &format!(
             "{} {}",
             "bzr status",
             "(along with other commands for more rich output)".bright_yellow()
@@ -36,7 +33,7 @@ pub fn execute_state_info() {
 
 pub fn execute_state_git() {
     println!(
-        "\n{} {}\n",
+        "\n{} {}",
         " Git ".black().italic().on_bright_yellow(),
         "repository status".yellow().italic(),
     );
@@ -118,7 +115,7 @@ pub fn execute_state_git() {
                     Err(error) => {
                         log_diagnostic(DiagnosticKind::Error {
                             subject: "git log",
-                            body:    &format!("{}", error),
+                            body: &format!("{}", error),
                         });
                     }
                 }
@@ -313,7 +310,7 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting staged changes (git)",
-            body:    &format!("{}", error),
+            body: &format!("{}", error),
         }),
     }
 
@@ -344,7 +341,7 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting unstaged files (git)",
-            body:    &format!("{}", error),
+            body: &format!("{}", error),
         }),
     }
 
@@ -375,7 +372,7 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting untracked files (git)",
-            body:    &format!("{}", error),
+            body: &format!("{}", error),
         }),
     }
 

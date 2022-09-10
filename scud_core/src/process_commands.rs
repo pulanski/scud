@@ -17,17 +17,13 @@ use crate::{
         unstage::unstage::unstage_command,
         update::update::update_command,
     },
-    info::info::process_info_commands,
 };
 
+/// Handler for the various CLI commands
 pub fn process_args(args: Cli, start_time: SystemTime) {
     let args = args.command;
 
     match args {
-        Commands::Info(info_commands) => {
-            process_info_commands(info_commands, start_time);
-        }
-
         //////////////////////////////////////////////////////////////
         // Commands for starting repositories (local, remote, both) //
         //////////////////////////////////////////////////////////////
@@ -40,7 +36,14 @@ pub fn process_args(args: Cli, start_time: SystemTime) {
 
         //////////////////////////////////////////////////////////////
         // Declarative high-level operations on the top of the VCS. //
+        // with improved usage information and diagnostics.         //
+        // - State                                                  //
+        // - Stage                                                  //
+        // - Unstage                                                //
+        // - Commit                                                 //
+        // - Diff                                                   //
         //////////////////////////////////////////////////////////////
+
         Commands::State(state_options) => {
             state_command(state_options, start_time);
         }
@@ -70,13 +73,11 @@ pub fn process_args(args: Cli, start_time: SystemTime) {
             diff_command(diff_options, start_time);
         }
 
-        // TODO
-        // [ ] refactor info command to avoid panic
-
         ///////////////////////////////////
         // Branching commands along with //
         // branching strategies          //
         ///////////////////////////////////
+
         Commands::Branch(branch_commands) => {
             process_branch_commands(branch_commands, start_time)
         }
@@ -84,18 +85,20 @@ pub fn process_args(args: Cli, start_time: SystemTime) {
         ////////////////////////////
         // Various setup commands //
         ////////////////////////////
-        Commands::Setup(setup_options) => {
-            println!("Setup {}", setup_options.info);
-        }
+        // Commands::Setup(setup_options) => {
+        //     println!("Setup {}", setup_options.info);
+        // }
 
         //////////////////////////////////////////////////
         // Commands to ensure system is setup for usage //
-        // w/ the latest version of scud                //
+        // w/ the underlying components which make up   //
+        // scud                                         //
         //////////////////////////////////////////////////
         Commands::Healthcheck => {
             healthcheck_command(start_time);
         }
-
+        
+        //
         Commands::Update(update_options) => {
             update_command(update_options, start_time);
         }
@@ -104,7 +107,7 @@ pub fn process_args(args: Cli, start_time: SystemTime) {
         // Handler for processing unknown commands //
         /////////////////////////////////////////////
         _ => {
-            println!("Unknown command: {:?}", args);
+            !unreachable!();
         }
     }
 }

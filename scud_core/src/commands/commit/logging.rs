@@ -1,9 +1,6 @@
 use colored::Colorize;
 
-use crate::logging::helpers::{
-    black_italic_close_paren,
-    black_italic_open_paren,
-};
+use crate::logging::helpers::{black_italic_close_paren, black_italic_open_paren};
 
 // supports generating commit messages following an
 // assortment of commit message formats (Angular, Conventional, etc.)

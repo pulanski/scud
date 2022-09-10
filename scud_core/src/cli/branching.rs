@@ -31,7 +31,7 @@ pub struct Branch {
 pub enum BranchCommands {
     /// Lists all branches in the current repository (both local and remote).
     /// [alias: ls]
-    #[clap(alias = "ls")]
+    #[clap(alias = "li")]
     List(BranchList),
 
     /// Renames a branch in the current repository.

@@ -1,15 +1,10 @@
 use std::time::SystemTime;
 
 use crate::{
-    cli::{
-        branching::BranchList,
-        cli::VCS,
-    },
+    cli::{branching::BranchList, cli::VCS},
     commands::branch::list::executors::{
-        execute_branch_list_breezy,
-        execute_branch_list_git,
-        execute_branch_list_info,
-        execute_branch_list_mercurial,
+        execute_branch_list_breezy, execute_branch_list_git,
+        execute_branch_list_info, execute_branch_list_mercurial,
     },
     helpers::detect_vcs,
     logging::general::log_execution_time,

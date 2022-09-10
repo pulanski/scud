@@ -1,26 +1,12 @@
-use std::process::{
-    exit,
-    Command,
-};
+use std::process::{exit, Command};
 
 use colored::Colorize;
-use dialoguer::{
-    theme::ColorfulTheme,
-    Confirm,
-    FuzzySelect,
-    Input,
-};
+use dialoguer::{theme::ColorfulTheme, Confirm, FuzzySelect, Input};
 use indicatif::ProgressBar;
 
 use crate::{
-    commands::commit::{
-        commit::CommitMessageFormat,
-        logging::log_commit_message,
-    },
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
+    commands::commit::{commit::CommitMessageFormat, logging::log_commit_message},
+    diagnostics::{log_diagnostic, DiagnosticKind},
     logging::helpers::bright_yellow_backtick,
 };
 
@@ -54,7 +40,7 @@ pub fn process_commit_message() -> String {
             CommitMessageFormat::Unknown => {
                 log_diagnostic(DiagnosticKind::Error {
                     subject: "Invalid commit message format",
-                    body:    "Unknown selection for commit message format. Valid \
+                    body: "Unknown selection for commit message format. Valid \
                               formats include Conventional Commit Specification, \
                               Angular Commit Specification, or none",
                 });
@@ -216,7 +202,7 @@ pub fn get_commit_message_format() -> CommitMessageFormat {
         _ => {
             log_diagnostic(DiagnosticKind::Error {
                 subject: "Invalid commit message format",
-                body:    "Unknown selection for commit message format. Valid \
+                body: "Unknown selection for commit message format. Valid \
                           formats include Conventional Commit Specification, \
                           Angular Commit Specification, or none",
             });
@@ -379,6 +365,8 @@ pub fn get_body() -> String {
 }
 
 pub fn get_breaking_changes() -> String {
+    // Continue
+
     let breaking_changes = Confirm::with_theme(&ColorfulTheme::default())
         .with_prompt(format!(
             "{}{}{}",
@@ -461,7 +449,7 @@ pub fn check_for_staged_files() {
             if staged_changes.len() == 0 {
                 log_diagnostic(DiagnosticKind::Error {
                     subject: "Attempting to commit without any staged changes",
-                    body:    "Please stage your changes before going through the \
+                    body: "Please stage your changes before going through the \
                               commit process",
                 });
                 log_diagnostic(DiagnosticKind::Tip {
@@ -481,7 +469,7 @@ pub fn check_for_staged_files() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting staged changes (git)",
-            body:    &format!("{}", error),
+            body: &format!("{}", error),
         }),
     }
 }

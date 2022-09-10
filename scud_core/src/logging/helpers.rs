@@ -1,7 +1,4 @@
-use colored::{
-    ColoredString,
-    Colorize,
-};
+use colored::{ColoredString, Colorize};
 
 ////////////////////////////////////////
 // Helpers that effectively provide   //

@@ -3,13 +3,10 @@ use crate::{
         Branch,
         Feature,
     },
-    cli::{
-        information::Info,
-        version_control::{
-            Diff,
-            Init,
-            New,
-        },
+    cli::version_control::{
+        Diff,
+        Init,
+        New,
     },
 };
 
@@ -37,11 +34,6 @@ pub enum VCS {
     Git,
     Mercurial,
     Breezy,
-    // SVN, // TODO add support for SVN (maybe), requires different strategy for
-    // TODO detection and general usage
-
-    //CVS, // TODO add support for CVS requires
-    // TODO different strategy for detection and general usage
     // Bazaar, not actively maintained, Breezy is recommended alternative and is
     // supported instead.
 }
@@ -50,14 +42,14 @@ pub enum VCS {
 #[derive(Debug, Parser)]
 #[clap(name = "scud")]
 #[clap(
-    about = "A toolkit for streamlining the many version and source control \
-             processes of your development workflow. Agnostic to your codebase's \
-             internals and development environment, it just works.",
-    long_about = "Scud was created to fill the gap between the many version \
-                  control processes of your development workflow and build upon \
-                  the features provided by similar tools in the space (commitizen, \
-                  cz cli, etc.), without compromising on performance. All commands \
-                  support aliases thanks to clap to further enhance overall DX."
+    about = "A tool for streamlining the version and source control processes of \
+             your development workflow.",
+    long_about = "Scud was created to fill the gaps between the version control \
+                  processes of a typical development workflow and build upon the \
+                  features provided by similar tools in thespace (commitizen, cz \
+                  cli, etc.). The tool was created with an emphasis on user \
+                  diagnostics and performance. All commands support aliases for \
+                  more terse usage thanks to clap to further enhance overall UX."
 )]
 #[clap(version)]
 pub struct Cli {
@@ -69,11 +61,10 @@ pub struct Cli {
 /// The subcommands within scud's CLI surface.
 #[derive(Debug, Subcommand)]
 pub enum Commands {
-    /// Useful information and diagnostics about your system and codebase
-    /// [alias: in]
-    #[clap(alias = "in")]
-    Info(Info),
-
+    // Useful information and diagnostics about your system and codebase
+    // [alias: in]
+    // #[clap(alias = "in")]
+    // Info(Info),
     /// Creates a new local repository in the current directory
     /// with a specified VCS, if one does not already exist (local repo).
     /// Additionally, initializes a corresponding remote repository
@@ -88,11 +79,10 @@ pub enum Commands {
     New(New),
 
     /// Initializes a local repository with a given VCS provider (currently
-    /// supported: git, mercurial, breezy). [alias: i]
+    /// supported: git). [alias: i]
     // TODO Additionally, asks you if you would like to initialize the
     // repository with a basic branch structure following the GitFlow
     // branching model.
-    // (currently supported: Git, SVN, CVS, Mercurial, Bazaar).
     // This command is useful for initializing a repository that
     // is not yet tracked by a particular Version Control System.
     #[clap(alias = "i")]
@@ -105,8 +95,9 @@ pub enum Commands {
     // dependencies onto your local system
     // (i.e. git, bazaar, gh, glab, etc.),
     // so you can focus your time on more important things.
-    #[clap(alias = "su")]
-    Setup(Setup),
+    // TODO
+    // #[clap(alias = "su")]
+    // Setup(Setup),
 
     /// Stages all modified files in the current local repository
     /// ensuring they are ready to be committed. This command can be run from
@@ -135,7 +126,7 @@ pub enum Commands {
     State(State),
 
     /// Primary subcommand for working with branches.
-    /// Handles CRUD operations for branches as well as
+    /// Handles general CRUD operations for branches as well as
     /// listing branches.
     /// [alias: br]
     #[clap(alias = "br")]

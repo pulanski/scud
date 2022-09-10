@@ -20,7 +20,7 @@ use crate::{
 };
 
 pub fn process_branch_commands(branch_commands: Branch, start_time: SystemTime) {
-    {
+    
         match branch_commands.command {
             Some(branch_command) => match branch_command {
                 BranchCommands::List(branch_list_options) => {
@@ -36,7 +36,7 @@ pub fn process_branch_commands(branch_commands: Branch, start_time: SystemTime) 
                 get_branch_command(start_time);
             }
         }
-    }
+    
 }
 
 pub fn get_branch_command(start_time: SystemTime) {
