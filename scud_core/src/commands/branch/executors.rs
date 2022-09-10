@@ -47,12 +47,10 @@ pub fn execute_branch_git() {
                 // check if branch is current branch
                 if branch.contains('*') {
                     print!("{}", "**".red());
-                    print!("{}", branch.replace("*", "").cyan());
-                    println!(
-                        "{}{}",
-                        " <-".bright_yellow().italic(),
-                        " ACTIVE ".red()
-                    );
+                    let branch_name = branch.split('*').last().unwrap();
+                    branch = branch_name.trim();
+                    print!(" {}", branch.cyan());
+                    println!("{}{}", " <-".green(), " ACTIVE ".red());
                 } else {
                     println!("{}", branch.cyan());
                 }
@@ -99,11 +97,15 @@ pub fn execute_branch_git() {
                 }
 
                 // print latest commit
-                print!(
-                    "  {}  {}",
-                    "latest commit".bright_yellow().italic(),
-                    latest_commit_hash.white()
-                );
+                if latest_commit_hash.is_empty() {
+                    print!("  {}", "No commits".bright_black().italic());
+                } else {
+                    print!(
+                        "  {} {}",
+                        "Latest commit:".bright_yellow().italic(),
+                        latest_commit_hash.white().italic()
+                    );
+                }
             }
 
             // Collect remote branches
@@ -113,7 +115,7 @@ pub fn execute_branch_git() {
                 .collect::<Vec<&str>>();
 
             // Log remote branches
-            println!("\n\n  {}\n", " REMOTE ".black().on_magenta());
+            println!("\n  {}\n", " REMOTE ".black().on_magenta());
             let mut i = 0;
             let remote_branches_len = remote_branches.len();
             for mut branch in remote_branches {
@@ -134,7 +136,36 @@ pub fn execute_branch_git() {
                 println!("{}", branch.cyan());
                 // print the separator
                 if i != remote_branches_len {
-                    println!("  {}", "|".blue());
+                    print!("  {}", "|".blue());
+                }
+
+                // Get the latest commit hash for the branch
+                let mut latest_commit_hash = String::new();
+                match Command::new("git")
+                    .args(&["log", "-1", "--pretty=%H", branch])
+                    .output()
+                {
+                    Ok(output) => {
+                        latest_commit_hash =
+                            String::from_utf8_lossy(&output.stdout).to_string();
+                    }
+                    Err(error) => {
+                        log_diagnostic(DiagnosticKind::Error {
+                            subject: "git log",
+                            body:    &format!("{}", error),
+                        });
+                    }
+                }
+
+                // print latest commit
+                if latest_commit_hash.is_empty() {
+                    println!("  {}", "No commits".bright_black().italic());
+                } else {
+                    println!(
+                        "     {} {}",
+                        "Latest commit:".bright_yellow().italic(),
+                        latest_commit_hash.white().italic()
+                    );
                 }
             }
             println!();
