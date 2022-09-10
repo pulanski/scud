@@ -1,22 +1,50 @@
 use std::process::Command;
 
 use crate::{
-    commands::commit::helpers::{check_for_staged_files, process_commit_message},
-    diagnostics::{log_diagnostic, DiagnosticKind},
+    commands::commit::helpers::{
+        check_for_staged_files,
+        process_commit_message,
+    },
+    diagnostics::{
+        log_diagnostic,
+        DiagnosticKind,
+    },
 };
+
+use colored::Colorize;
 
 /// Takes the commit message from the user
 /// and then logs a diagnostic message
 /// indicating the usage of the dry-run option.
 pub fn execute_commit_dry_run() {
-    let _commit_message = process_commit_message();
+    process_commit_message();
     log_diagnostic(DiagnosticKind::DryRun { command: "commit" });
 }
 
-// TODO - implement execute_commit_info properly look at stage
 pub fn execute_commit_info() {
-    log_diagnostic(DiagnosticKind::WorkInProgress {
-        feature: "Commit under the hood",
+    log_diagnostic(DiagnosticKind::ScudCommandInfo {
+        command:     "commit",
+        description: "This command is used to construct a human-readable commit \
+                      message and commit staged changes to the current branch in \
+                      the local repository.",
+    });
+    log_diagnostic(DiagnosticKind::VCSInfo {
+        command_name:      "commit",
+        git_command:       &format!(
+            "{} {}",
+            "git commit -m \"<generated message>\"",
+            "(generated commit message comes from user flow w/ CLI)".bright_yellow()
+        ),
+        mercurial_command: &format!(
+            "{} {}",
+            "hg commit -m \"<generated message>\"",
+            "(generated commit message comes from user flow w/ CLI)".bright_yellow()
+        ),
+        breezy_command:    &format!(
+            "{} {}",
+            "bzr commit -m \"<generated message>\"",
+            "(generated commit message comes from user flow w/ CLI)".bright_yellow()
+        ),
     });
 }
 
@@ -51,7 +79,7 @@ pub fn execute_commit_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "git commit failed",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 }

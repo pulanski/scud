@@ -1,8 +1,14 @@
 use crate::{
-    cli::cli::{Commit, VCS},
+    cli::cli::{
+        Commit,
+        VCS,
+    },
     commands::commit::executors::{
-        execute_commit_breezy, execute_commit_dry_run, execute_commit_git,
-        execute_commit_info, execute_commit_mercurial,
+        execute_commit_breezy,
+        execute_commit_dry_run,
+        execute_commit_git,
+        execute_commit_info,
+        execute_commit_mercurial,
     },
     helpers::detect_vcs,
 };
@@ -35,7 +41,7 @@ pub fn commit_command(commit_options: Commit) {
     }
 }
 
-/// It detects the version control system, and then calls the appropriate
+/// Detects the version control system, and then calls the appropriate
 /// function to execute the commit
 fn execute_commit() {
     let vcs = detect_vcs();

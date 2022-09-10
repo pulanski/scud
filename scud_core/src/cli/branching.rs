@@ -23,6 +23,13 @@ pub struct Branch {
     /// The subcommand to run.
     #[clap(subcommand)]
     pub command: Option<BranchCommands>,
+
+    /// When true, will output the commands that scud runs under the hood
+    ///
+    /// (optional).
+    /// [default: false]
+    #[clap(short, long, value_parser, required = false, default_value_t = false)]
+    pub info: bool,
 }
 
 /// The subcommands within scud's branch command surface (i.e. list, delete,
@@ -30,7 +37,7 @@ pub struct Branch {
 #[derive(Debug, Subcommand)]
 pub enum BranchCommands {
     /// Lists all branches in the current repository (both local and remote).
-    /// [alias: ls]
+    /// [alias: li]
     #[clap(alias = "li")]
     List(BranchList),
 
