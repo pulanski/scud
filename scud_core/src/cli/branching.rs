@@ -16,6 +16,7 @@ use clap::{
 /// Primary command for working with branches
 /// within the context of scud in the current repository.
 /// Handles listing, renaming, and deleting branches.
+/// When passed no arguments, it will list all branches.
 /// [alias: br]
 #[derive(Debug, Args)]
 #[clap(args_conflicts_with_subcommands = true)]
@@ -36,11 +37,6 @@ pub struct Branch {
 /// rename).
 #[derive(Debug, Subcommand)]
 pub enum BranchCommands {
-    /// Lists all branches in the current repository (both local and remote).
-    /// [alias: li]
-    #[clap(alias = "li")]
-    List(BranchList),
-
     /// Renames a branch in the current repository.
     /// [alias: rn]
     #[clap(alias = "rn")]
@@ -50,18 +46,6 @@ pub enum BranchCommands {
     /// [alias: del]
     #[clap(alias = "del")]
     Delete(BranchDelete),
-}
-
-/// Lists all branches (local and remote) in the current repository.
-/// [alias: ls]
-#[derive(Debug, Args)]
-pub struct BranchList {
-    /// When true, will output the commands that scud runs under the hood
-    ///
-    /// (optional).
-    /// [default: false]
-    #[clap(short, long, value_parser, required = false, default_value_t = false)]
-    pub info: bool,
 }
 
 /// Lists all feature branches in the current local repository.

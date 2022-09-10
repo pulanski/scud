@@ -25,7 +25,7 @@ pub enum CommitMessageFormat {
     Unknown,
 }
 
-/// It executes the commit command with the given options
+/// Executes the commit command with the given options
 ///
 /// Arguments:
 ///

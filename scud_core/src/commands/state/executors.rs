@@ -2,18 +2,21 @@ use std::process::Command;
 
 use colored::Colorize;
 
-use crate::diagnostics::{log_diagnostic, DiagnosticKind};
+use crate::diagnostics::{
+    log_diagnostic,
+    DiagnosticKind,
+};
 
 pub fn execute_state_info() {
     log_diagnostic(DiagnosticKind::ScudCommandInfo {
-        command: "state",
+        command:     "state",
         description: "This command is intended to display repository metadata \
                       including branching information as well as file changes in a \
                       concise, human-readable format.",
     });
     log_diagnostic(DiagnosticKind::VCSInfo {
-        command_name: "state",
-        git_command: &format!(
+        command_name:      "state",
+        git_command:       &format!(
             "{} {}",
             "git status",
             "(along with other commands for more rich output)".bright_yellow()
@@ -23,7 +26,7 @@ pub fn execute_state_info() {
             "hg status",
             "(along with other commands for more rich output)".bright_yellow()
         ),
-        breezy_command: &format!(
+        breezy_command:    &format!(
             "{} {}",
             "bzr status",
             "(along with other commands for more rich output)".bright_yellow()
@@ -115,7 +118,7 @@ pub fn execute_state_git() {
                     Err(error) => {
                         log_diagnostic(DiagnosticKind::Error {
                             subject: "git log",
-                            body: &format!("{}", error),
+                            body:    &format!("{}", error),
                         });
                     }
                 }
@@ -155,126 +158,6 @@ pub fn execute_state_git() {
         }
     }
 
-    // match Command::new("git").arg("status").arg("-sb").output() {
-    //     Ok(status) => {
-    //         let status_raw = String::from_utf8_lossy(&status.stdout).to_string();
-
-    // if there are no unstaged and no untracked files, then the repository is clean
-    // and issuing the stage command will have no effect on the repository
-    // and that control flow will be output back to the user as a diagnostic
-
-    //         // Get current branches
-    //         let current_branches = status_raw
-    //             .lines()
-    //             .nth(0)
-    //             .unwrap_or_default()
-    //             .split(" ")
-    //             .nth(1)
-    //             .unwrap_or_default();
-
-    //         // TODO create branching logs to look like
-    //         //  /-
-    //         //  |
-    //         //  |*
-    //         //  |
-    //         //  \-
-
-    //         // Get local branch
-    //         let local_branch_raw =
-    // current_branches.split("...").nth(0).unwrap_or_default();         let
-    // local_branch = &format!(" {local_branch_raw} ");
-
-    //         // Get remote branch
-    //         let remote_branch_raw =
-    // current_branches.split("...").nth(1).unwrap_or_default();         let
-    // remote_branch = &format!(" {remote_branch_raw} ");
-
-    //         println!(
-    //             "{}{}  {} {} {}\n",
-    //             "Current branch".bright_green().italic(),
-    //             black_colon(),
-    //             local_branch.to_string().black().italic().on_green(),
-    //             "...".yellow().italic(),
-    //             remote_branch.to_string().black().italic().on_red(),
-    //         );
-    //     }
-    //     Err(error) => log_diagnostic(DiagnosticKind::Error {
-    //         subject: "git status failed",
-    //         body: &format!("{}", error),
-    //     }),
-    // }
-
-    // // Get all branches
-    // match Command::new("git").arg("branch").arg("-a").output() {
-    //     Ok(branches) => {
-    //         let branches_raw =
-    // String::from_utf8_lossy(&branches.stdout).to_string();
-
-    //         // Get all local branches
-    //         let branches = branches_raw
-    //             .lines()
-    //             .filter(|line| !line.contains("remotes"))
-    //             .map(|line| line.trim())
-    //             .collect::<Vec<&str>>();
-
-    //         println!(
-    //             "{}{}\n",
-    //             "Local branches".bright_yellow().italic(),
-    //             black_colon(),
-    //         );
-
-    //         for branch_raw in branches {
-    //             if branch_raw.contains("*") {
-    //                 let branch = format!(" {} ", &branch_raw.replace("*",
-    // "").trim().to_string());                 println!("{}\n",
-    // branch.black().italic().on_yellow());             } else {
-    //                 let branch = &format!(" {branch_raw} ");
-    //                 println!("{}\n", branch.black().italic().on_yellow(),);
-    //             }
-    //         }
-
-    //         println!("Potential Branch Metadata implementations\n\nDESIGN
-    // ONE\n");
-
-    //         println!(
-    //             "{} {} {} {}\n{}",
-    //             "/-".bright_black(),
-    //             " fix/test ".bright_green().italic(),
-    //             "...".black().italic(),
-    //             " origin/fix/test ".bright_magenta().italic(),
-    //             "|".bright_black()
-    //         );
-    //         println!(
-    //             "{}{} {} {} {} {} {}",
-    //             "|".bright_black(),
-    //             "-*".yellow(),
-    //             " main ".black().italic().on_green(),
-    //             "---".yellow().italic(),
-    //             " origin/main ".black().italic().on_red(),
-    //             "<-".bright_black(),
-    //             "ACTIVE".bright_cyan()
-    //         );
-    //         println!(
-    //             "{} {} {} {}",
-    //             "|\n|-".bright_black(),
-    //             " feature/design_api ".bright_green().italic(),
-    //             "...".black().italic(),
-    //             " origin/feature/design_api ".bright_magenta().italic()
-    //         );
-    //         println!(
-    //             "{} {} {} {}",
-    //             "|\n\\-".bright_black(),
-    //             " feature/state_ux ".bright_green().italic(),
-    //             "...".black().italic(),
-    //             " origin/fix/test ".bright_magenta().italic()
-    //         );
-    //     }
-    //     Err(error) => log_diagnostic(DiagnosticKind::Error {
-    //         subject: "git status failed",
-    //         body: &format!("{}", error),
-    //     }),
-    // }
-
     println!("\n{}\n", " CHANGES TO FILES: ".black().on_cyan());
 
     // get_all_staged_changes();
@@ -310,7 +193,7 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting staged changes (git)",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 
@@ -341,7 +224,7 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting unstaged files (git)",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 
@@ -372,7 +255,7 @@ pub fn execute_state_git() {
         }
         Err(error) => log_diagnostic(DiagnosticKind::Error {
             subject: "getting untracked files (git)",
-            body: &format!("{}", error),
+            body:    &format!("{}", error),
         }),
     }
 
