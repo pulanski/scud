@@ -168,7 +168,6 @@ pub fn execute_branch_git() {
                     );
                 }
             }
-            println!();
         }
         Err(error) => {
             println!("{}", error);

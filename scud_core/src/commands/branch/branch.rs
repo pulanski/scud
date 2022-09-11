@@ -95,16 +95,20 @@ pub fn execute_branch() {
 
     log_diagnostic(DiagnosticKind::Tip {
         body: &format!(
-            "{} {}{}{} {} {}{}{} {}",
+            "{} {}{}{}{}{} {} {}{}{} {}{}{}",
             "Use".yellow(),
             bright_yellow_backtick(),
             "scud branch create".green().italic(),
             bright_yellow_backtick(),
-            "to create a new local branch or use".yellow(),
+            " to ".yellow(),
+            "create a new local branch".bright_yellow(),
+            "or use".yellow(),
             bright_yellow_backtick(),
             "scud move".green().italic(),
             bright_yellow_backtick(),
-            "to move between branches in the current local repository".yellow(),
+            "to ".yellow(),
+            "move between branches".bright_yellow(),
+            " in the current local repository".yellow(),
         ),
     });
 }

@@ -1,0 +1,2 @@
+[x] - Finish branch information listing (git)
+[ ] - Add ahead behind information to state output
