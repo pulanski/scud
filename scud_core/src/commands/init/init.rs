@@ -1,5 +1,3 @@
-use std::time::SystemTime;
-
 use colored::Colorize;
 use dialoguer::{
     theme::ColorfulTheme,
@@ -8,9 +6,9 @@ use dialoguer::{
     FuzzySelect,
 };
 
-use crate::{logging::general::log_execution_time, version_control::Init};
+use crate::version_control::Init;
 
-pub fn init_command(init_options: Init, start_time: SystemTime) {
+pub fn init_command(init_options: Init) {
     let vcs_options = &["Git", "Mercurial", "Breezy"];
 
     // println!("{}", "Initializing new repository...".green());
@@ -49,6 +47,4 @@ pub fn init_command(init_options: Init, start_time: SystemTime) {
             println!("Unknown");
         }
     }
-
-    log_execution_time(start_time);
 }

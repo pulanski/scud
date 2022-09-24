@@ -1,20 +1,9 @@
 use crate::{
-    branching::{
-        Branch,
-        Feature,
-    },
-    cli::version_control::{
-        Diff,
-        Init,
-        New,
-    },
+    branching::{Branch, Feature},
+    cli::version_control::{Diff, Init, New},
 };
 
-use clap::{
-    Args,
-    Parser,
-    Subcommand,
-};
+use clap::{Args, Parser, Subcommand};
 
 // TODO add scud stash
 // add scud pop
@@ -126,8 +115,7 @@ pub enum Commands {
     State(State),
 
     /// Primary subcommand for working with branches.
-    /// Handles general CRUD operations for branches as well as
-    /// listing branches.
+    /// Handles general CRUD operations with branches.
     /// [alias: br]
     #[clap(alias = "br")]
     Branch(Branch),

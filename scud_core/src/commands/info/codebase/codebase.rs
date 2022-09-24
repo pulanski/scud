@@ -1,15 +1,14 @@
-use std::{process::Command, time::SystemTime};
+use std::process::Command;
 
 use colored::Colorize;
 
 use crate::{
     diagnostics::{log_diagnostic, DiagnosticKind, ExternalCommandInfo},
-    general::log_execution_time,
     information::Codebase,
 };
 
 // TODO refactor this command to follow pattern of others (stage, state)
-pub fn info_codebase_command(codebase_options: Codebase, start_time: SystemTime) {
+pub fn info_codebase_command(codebase_options: Codebase) {
     if codebase_options.info {
         log_diagnostic(DiagnosticKind::ScudCommandInfo {
             command: "codebase information",
@@ -63,6 +62,4 @@ pub fn info_codebase_command(codebase_options: Codebase, start_time: SystemTime)
             }
         }
     }
-
-    log_execution_time(start_time);
 }

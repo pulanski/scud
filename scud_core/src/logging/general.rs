@@ -1,10 +1,10 @@
-use std::time::SystemTime;
+use std::time::Instant;
 
 use colored::Colorize;
 
-pub fn log_execution_time(start_time: SystemTime) {
-    let end_time = SystemTime::now();
-    let duration = end_time.duration_since(start_time).unwrap();
+pub fn log_execution_time(start_time: Instant) {
+    let end_time = Instant::now();
+    let duration = end_time.duration_since(start_time);
 
     if duration.as_secs() > 0 {
         println!(
@@ -12,7 +12,6 @@ pub fn log_execution_time(start_time: SystemTime) {
             "💥 Done in ".italic(),
             end_time
                 .duration_since(start_time)
-                .unwrap()
                 .as_secs_f32()
                 .to_string()
                 .italic(),
@@ -24,7 +23,6 @@ pub fn log_execution_time(start_time: SystemTime) {
             "💥 Done in ".italic(),
             end_time
                 .duration_since(start_time)
-                .unwrap()
                 .as_millis()
                 .to_string()
                 .italic(),
@@ -32,7 +30,3 @@ pub fn log_execution_time(start_time: SystemTime) {
         );
     }
 }
-
-// pub fn log_dry_run_note() {
-//     log_diagnostic(DiagnosticKind::DryRun { command:  });
-// }

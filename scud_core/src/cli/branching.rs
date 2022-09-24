@@ -1,7 +1,4 @@
-use clap::{
-    Args,
-    Subcommand,
-};
+use clap::{Args, Subcommand};
 
 ///////////////////////////////////
 // Branch subcommands            //

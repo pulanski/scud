@@ -1,19 +1,14 @@
-use std::time::SystemTime;
-
 use crate::{
     diagnostics::{log_diagnostic, DiagnosticKind, ExternalCommandInfo},
-    general::log_execution_time,
     information::System,
 };
 
-pub fn info_system_command(system_options: System, start_time: SystemTime) {
+pub fn info_system_command(system_options: System) {
     if system_options.info {
         execute_system_info();
     } else {
         execute_system();
     }
-
-    log_execution_time(start_time);
 }
 
 pub fn execute_system() {

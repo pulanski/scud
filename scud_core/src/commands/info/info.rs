@@ -1,46 +1,34 @@
-use std::time::SystemTime;
-
 use colored::Colorize;
-use dialoguer::{
-    theme::ColorfulTheme,
-    FuzzySelect,
-};
+use dialoguer::{theme::ColorfulTheme, FuzzySelect};
 
 use crate::{
     commands::info::{
         codebase::codebase::info_codebase_command,
         system::system::info_system_command,
     },
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
-    information::{
-        Codebase,
-        Info,
-        InfoCommands,
-    },
+    diagnostics::{log_diagnostic, DiagnosticKind},
+    information::{Codebase, Info, InfoCommands},
 };
 
-pub fn process_info_commands(info_commands: Info, start_time: SystemTime) {
+pub fn process_info_commands(info_commands: Info) {
     {
         match info_commands.command {
             Some(info_command) => match info_command {
                 InfoCommands::Codebase(codebase_options) => {
-                    info_codebase_command(codebase_options, start_time);
+                    info_codebase_command(codebase_options);
                 }
                 InfoCommands::System(system_options) => {
-                    info_system_command(system_options, start_time);
+                    info_system_command(system_options);
                 }
             },
             None => {
-                get_branch_command(start_time);
+                get_branch_command();
             }
         }
     }
 }
 
-pub fn get_branch_command(start_time: SystemTime) {
+pub fn get_branch_command() {
     let branch_subcommand_options = &[
         "Codebase [alias: cb]: Information about the contents of the codebase \
          within the
@@ -67,7 +55,7 @@ pub fn get_branch_command(start_time: SystemTime) {
 
     match selected_subcommand {
         0 => {
-            info_codebase_command(Codebase { info: false }, start_time);
+            info_codebase_command(Codebase { info: false });
         }
         1 => {
             log_diagnostic(DiagnosticKind::WorkInProgress {

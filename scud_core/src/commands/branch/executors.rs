@@ -2,10 +2,7 @@ use std::process::Command;
 
 use colored::Colorize;
 
-use crate::diagnostics::{
-    log_diagnostic,
-    DiagnosticKind,
-};
+use crate::diagnostics::{log_diagnostic, DiagnosticKind};
 
 pub fn execute_branch_git() {
     println!(
@@ -84,7 +81,7 @@ pub fn execute_branch_git() {
                     Err(error) => {
                         log_diagnostic(DiagnosticKind::Error {
                             subject: "git log",
-                            body:    &format!("{}", error),
+                            body: &format!("{}", error),
                         });
                     }
                 }
@@ -152,7 +149,7 @@ pub fn execute_branch_git() {
                     Err(error) => {
                         log_diagnostic(DiagnosticKind::Error {
                             subject: "git log",
-                            body:    &format!("{}", error),
+                            body: &format!("{}", error),
                         });
                     }
                 }

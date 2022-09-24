@@ -1,12 +1,7 @@
-use crate::logging::general::log_execution_time;
-use crate::{
-    cli::cli::Push,
-    commands::push::executors::execute_push_dry_run,
-};
+use crate::{cli::cli::Push, commands::push::executors::execute_push_dry_run};
 use std::process::Command;
-use std::time::SystemTime;
 
-pub fn push_command(push_options: Push, start_time: SystemTime) {
+pub fn push_command(push_options: Push) {
     if push_options.dry_run {
         execute_push_dry_run();
     } else if push_options.info {
@@ -14,8 +9,6 @@ pub fn push_command(push_options: Push, start_time: SystemTime) {
     } else {
         execute_push();
     }
-
-    log_execution_time(start_time);
 }
 
 fn execute_push() {

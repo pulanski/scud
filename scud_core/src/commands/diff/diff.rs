@@ -1,5 +1,3 @@
-use std::time::SystemTime;
-
 use crate::{
     cli::cli::VCS,
     commands::diff::executors::{
@@ -7,18 +5,15 @@ use crate::{
         execute_diff_mercurial,
     },
     helpers::detect_vcs,
-    logging::general::log_execution_time,
     version_control::Diff,
 };
 
-pub fn diff_command(diff_options: Diff, start_time: SystemTime) {
+pub fn diff_command(diff_options: Diff) {
     if diff_options.info {
         execute_diff_info();
     } else {
         execute_diff();
     }
-
-    log_execution_time(start_time);
 }
 
 pub fn execute_diff() {

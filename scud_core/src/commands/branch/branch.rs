@@ -1,30 +1,17 @@
-use std::time::SystemTime;
-
 use colored::Colorize;
 
 use crate::{
-    branching::{
-        Branch,
-        BranchCommands,
-    },
+    branching::{Branch, BranchCommands},
     cli::cli::VCS,
     commands::branch::executors::{
-        execute_branch_breezy,
-        execute_branch_git,
-        execute_branch_mercurial,
+        execute_branch_breezy, execute_branch_git, execute_branch_mercurial,
     },
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
+    diagnostics::{log_diagnostic, DiagnosticKind},
     helpers::detect_vcs,
-    logging::{
-        general::log_execution_time,
-        helpers::bright_yellow_backtick,
-    },
+    logging::helpers::bright_yellow_backtick,
 };
 
-pub fn process_branch_commands(branch_commands: Branch, start_time: SystemTime) {
+pub fn process_branch_commands(branch_commands: Branch) {
     match branch_commands.command {
         Some(branch_command) => match branch_command {
             //       BranchCommands::List(branch_list_options) => {
@@ -41,32 +28,31 @@ pub fn process_branch_commands(branch_commands: Branch, start_time: SystemTime) 
             }
         },
         None => {
-            branch_command(branch_commands.info, start_time);
+            branch_command(branch_commands.info);
         }
     }
 }
 
 /// Lists all branches both local and remote in the current repository.
-pub fn branch_command(info: bool, start_time: SystemTime) {
+pub fn branch_command(info: bool) {
     if info {
         execute_branch_info();
     } else {
         execute_branch();
     }
-    log_execution_time(start_time);
 }
 
 /// Lists the commands that scud runs under the hood to list all branches
 /// in the current repository (both local and remote).
 pub fn execute_branch_info() {
     log_diagnostic(DiagnosticKind::ScudCommandInfo {
-        command:     "branch",
+        command: "branch",
         description: "This command is used to list branches in both the local and \
                       remote repositories.",
     });
     log_diagnostic(DiagnosticKind::VCSInfo {
-        command_name:      "branch",
-        git_command:       &format!(
+        command_name: "branch",
+        git_command: &format!(
             "{} {}",
             "git branch -A",
             "(along with other commands for more rich output)".bright_yellow()
@@ -76,7 +62,7 @@ pub fn execute_branch_info() {
             "hg branches",
             "(along with other commands for more rich output)".bright_yellow()
         ),
-        breezy_command:    &format!(
+        breezy_command: &format!(
             "{} {}",
             "bzr branches",
             "(along with other commands for more rich output)".bright_yellow()

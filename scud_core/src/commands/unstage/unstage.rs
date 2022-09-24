@@ -1,5 +1,3 @@
-use std::time::SystemTime;
-
 use colored::Colorize;
 
 use crate::{
@@ -7,10 +5,10 @@ use crate::{
     commands::unstage::executors::execute_unstage_git,
     detect_vcs,
     diagnostics::{log_diagnostic, DiagnosticKind},
-    logging::{general::log_execution_time, helpers::bright_yellow_backtick},
+    logging::helpers::bright_yellow_backtick,
 };
 
-pub fn unstage_command(unstage_options: Unstage, start_time: SystemTime) {
+pub fn unstage_command(unstage_options: Unstage) {
     if unstage_options.dry_run {
         execute_unstage_dry_run();
     } else if unstage_options.info {
@@ -18,8 +16,6 @@ pub fn unstage_command(unstage_options: Unstage, start_time: SystemTime) {
     } else {
         execute_unstage();
     }
-
-    log_execution_time(start_time);
 }
 
 fn execute_unstage() {

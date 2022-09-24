@@ -1,37 +1,22 @@
-use std::time::SystemTime;
-
 use crate::{
-    cli::cli::{
-        State,
-        VCS,
-    },
+    cli::cli::{State, VCS},
     commands::state::executors::{
-        execute_state_breezy,
-        execute_state_git,
-        execute_state_info,
+        execute_state_breezy, execute_state_git, execute_state_info,
         execute_state_mercurial,
     },
-    diagnostics::{
-        log_diagnostic,
-        DiagnosticKind,
-    },
+    diagnostics::{log_diagnostic, DiagnosticKind},
     helpers::detect_vcs,
-    logging::{
-        general::log_execution_time,
-        helpers::bright_yellow_backtick,
-    },
+    logging::helpers::bright_yellow_backtick,
 };
 
 use colored::Colorize;
 
-pub fn state_command(state_options: State, start_time: SystemTime) {
+pub fn state_command(state_options: State) {
     if state_options.info {
         execute_state_info();
     } else {
         execute_state();
     }
-
-    log_execution_time(start_time);
 }
 
 fn execute_state() {
@@ -45,17 +30,21 @@ fn execute_state() {
 
     log_diagnostic(DiagnosticKind::Tip {
         body: &format!(
-            "{} {}{}{} {} {}{}{} {}",
+            "{} {}{}{} {}{}{}{}{} {}{}{} {}{}",
             "Use".yellow(),
             bright_yellow_backtick(),
             "scud stage".green().italic(),
             bright_yellow_backtick(),
-            "to stage all unstaged changes and untracked files for commit or use"
-                .yellow(),
+            "to stage all ".yellow(),
+            "unstaged".bright_yellow(),
+            " and ".yellow(),
+            "untracked changes".bright_yellow(),
+            " for commit or use".yellow(),
             bright_yellow_backtick(),
             "scud commit".green().italic(),
             bright_yellow_backtick(),
-            "to commit any staged changes".yellow()
+            "to commit any ".yellow(),
+            "staged changes".bright_yellow()
         ),
     });
 }

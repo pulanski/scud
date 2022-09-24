@@ -36,9 +36,6 @@
     <a href="https://en.wikipedia.org/wiki/MIT_License">
         <img src="https://img.shields.io/github/license/pulanski/scud?labelColor=425C60&color=CFD6DD&">
     </a>
-    <a href="https://prettier.io/">
-        <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?labelColor=425C60&color=CFD6DD&">
-    </a>
     <!-- <a href="https://crates.io/crates/scud/">
         <img src="https://img.shields.io/tokei/lines/github/pulanski/scud?style=flat&labelColor=425C60&color=CFD6DD&">
     </a> -->
@@ -57,13 +54,13 @@ _move fast because or as if driven by the wind._
   <a href="#getting-started">Getting started</a>
 </p>
 
-A tool for streamlining the many version and source control processes of your development workflow written with an emphasis on general usage information and error diagnostics. Agnostic to your codebase’s internals and overall development environment, it just works.
+A tool for streamlining the many version control processes of your development workflow written with an emphasis on ease-of-use and expressive usage diagnostics.
 
--   🏎️ Fast (Rust-powered)
--   🧩 Modular
--   ⚙️ Configurable
--   ✨ Feature-rich
--   🍱 Sane defaults
+<!-- -   🏎️ Fast (Rust-powered) -->
+<!-- -   🧩 Modular -->
+<!-- -   ⚙️ Configurable -->
+<!-- -   ✨ Feature-rich -->
+<!-- -   🍱 Sane defaults -->
 
 <p align="center">
     <a href="https://github.com/pulanski/scud/issues">Report Bug</a>
@@ -104,17 +101,14 @@ A tool for streamlining the many version and source control processes of your de
 
 ## About
 
-Scud aims to solve the following problems and integrate them into a single tool for enhancing and accelerating your workflow in any project:
+<!-- Scud aims to solve the following problems and integrate them into a single tool for enhancing and accelerating your workflow in any project:
 
--   Version Control
--   Source Control
+-   Version Control -->
+<!-- -   Source Control
 -   Code Quality
--   Code Linting
-    <!-- -   Code Formatting -->
-    <!-- -   Code Analysis -->
-    <!-- -   Code Documentation -->
+-   Code Linting -->
 
-## Why build scud?
+### Why build scud?
 
 Scud was originally a tool I wanted to build for myself in an attempt to bridge the gap between making changes to my codebase locally and seeing them reflected on a remote repository. I wanted to be able to do this without having to repeatedly write a series of verbose commands, use an assortment of various tools to get the job done or go through some unique setup process for each new project I created.
 
@@ -122,21 +116,21 @@ Scud was originally a tool I wanted to build for myself in an attempt to bridge 
 
 I was interested in a tool that would provide:
 
--   **Declarative Version and Source Control**, a set of high-level, declarative operations for accelerating the repetitive tasks common in the development process of any project.
+-   **Declarative Version and Source Control** is a set of high-level, declarative operations for accelerating the repetitive tasks common in the development process of any project.
 -   **Agnostic to codebase internals and development environment**, not tied to your codebase's language (i.e. works in Rust-based projects, but not JavaScript, Python), or to the developer's shell (i.e. works in Fish, but not Zsh, Bash, Elvish, etc.).
 -   **Easy to use**, with a simple, intuitive interface.
 -   **Fast**, performance isn't hindered by the underlying implementation details.
--   **Useful diagnostics**, inspired by Rust's compiler diagnostics, however not just error diagnostics, but also general usage information as well.
--   **Hot Swappable**, is simple to mix and match various version control systems and source control providers and allows the developer the ability to migrate between them with ease. Think Prisma but for version control and source control.
--   **A gentle learning curve** with reasonable familiarity for developers intimate with the underlying components (e.g. git, GitHub CLI, git-cliff, etc.).
+-   **Useful diagnostics**, inspired by Rust's compiler diagnostics, general usage information and error messages should be clear and concise with expressive syntactic and semantic highlighting.
+<!-- -   **Hot Swappable**, is simple to mix and match various version control systems and source control providers and allows the developer the ability to migrate between them with ease. Think Prisma but for version control and source control. -->
+<!-- -   **A gentle learning curve** with reasonable familiarity for developers intimate with the underlying components (e.g. git, GitHub CLI, git-cliff, etc.). -->
 
-<!-- TODO auto generate changelog on commit via git-cliff -->
+<!-- TODO auto-generate changelog on commit via git-cliff -->
 
 ## Status
 
 Scud is currently a work in progress, so its complete functionality is not yet finished. However, feel free to use it now, and update it when available. Scud will notify you during usage whenever a new update is available and provides a convenient update command, `scud update [alias: scud up]`, which will update your local copy of scud to the latest version available.
 
-Detailed below is a list of the current features and their status, as well as the roadmap for the future.
+<!-- Detailed below is a list of the current features and their status, as well as the roadmap for the future.
 
 -   [x] stage
     -   [x] Git
@@ -167,19 +161,17 @@ Detailed below is a list of the current features and their status, as well as th
         -   [x] Breezy
     -   [x] source control providers
         -   [x] GitHub
-        -   [x] GitLab
--   [x] info
-    -   [x] codebase
-    -   [ ] system
+        -   [x] GitLab -->
 
-Roadmap:
+# Roadmap
 
 -   [ ] Implement Shell tab completions for scud via [`clap_complete`](https://crates.io/crates/clap_complete) crate
 -   [ ] Create man page for scud available for users by using `man scud` via [`clap_mangen`](https://crates.io/crates/clap_mangen) crate
--   [ ] Autogenerated Changelog for git via [`git-cliff`](https://crates.io/crates/git-cliff) or [``], will have to investigate tools for other VCSs
--   [ ] Add support for [`gitoxide`](https://github.com/Byron/gitoxide) as underlying VCS
+<!-- -   [ ] Add support for [`gitoxide`](https://github.com/Byron/gitoxide) as underlying VCS -->
 <!-- TODO check out smart-release -->
 -   [ ] Experiment with distributing tool via docker container to allow for even faster onboarding of new developers by not having to install scud's dependencies on the developer's machine
+-   [ ] In the future, I would like to add support for other version control systems, such as Mercurial and Breezy, as well as source control providers, such as GitHub, GitLab and BitBucket.
+<!-- -   [ ] Autogenerated Changelog for git via [`git-cliff`](https://crates.io/crates/git-cliff) or [``], will have to investigate tools for other VCSs -->
 
 _NOTE: I aim to round out the core feature set of scud before exploring further functionality_
 
@@ -187,7 +179,7 @@ _NOTE: I aim to round out the core feature set of scud before exploring further 
 
 ## Features and Functionality
 
-For scud's declarative version control features (e.g. `cap`, `commit`, `commit-all`, `push`, `pull`, `stage`, `state`, `unstage`), scud is smart enough to detect the underlying version control system in which it is being used and will automatically use the appropriate commands, so you don't have to worry about the underlying implementation details, it just works.
+<!-- For scud's declarative version control features (e.g. `commit`, `commit-all`, `push`, `pull`, `stage`, `state`, `unstage`), scud is smart enough to detect the underlying version control system in which it is being used and will automatically use the appropriate commands, so you don't have to worry about the underlying implementation details, it just works. -->
 
 ### ⚡ Supercharged Commits
 
@@ -201,11 +193,11 @@ Scud provides a declarative, concise interface to the underlying version control
 
 ## Getting Started
 
-You can get started using scud by following one of the installation methods detailed below. Additionally, it's important that you have the required prerequisites installed before you start using scud.
+You can get started using scud by following one of the installation methods detailed below. Additionally, you must have the required prerequisites installed before you start using scud.
 
 ## Prerequisites
 
-In order to get started using scud, it's important that you have [Rust](https://www.rust-lang.org/) installed on your local machine which can be done via the simple one-liner,
+To get started using scud, you must have [Rust](https://www.rust-lang.org/) installed on your local machine which can be done via the simple one-liner,
 
 ```bash
 # Install Rust and toolchain manager, rustup.
@@ -244,18 +236,24 @@ scud [SUBCOMMAND] [OPTIONS]
 
 **Subcommands:**
 
+<!--
+# Useful for streamlining the entire process of creating a local repository for your given project/app/library and getting a remote repository
+# up and running in a matter of seconds. Supports a variety of different combinations of version control systems and source control providers.
+new            Creates a new local repository in the current directory with a specified VCS, if one does not already exist (local repo).
+               Additionally, initializes a corresponding remote repository with a specified source control provider. [alias: n] -->
+
 ```
+# Useful for creating, updating, and deleting branches as well as visualizing and switching between them.
+branch        Handles CRUD operations when it comes to repository branching. [alias: br]
+
 # Useful when you have reached a codebase state you want to remember
 commit         Commits all staged files in the current local repository. [alias: c]
 
 # Useful for further streamlining the stage and commit process.
 commit-all     Stages all modified files in the current local repository and then commits them. [alias: ca]
 
-# Useful for quickly checking various metrics of interest.
-info           Useful information and diagnostics about your system and codebase [alias: in]
-
 # Useful for checking to see if your system is setup to work with all of the features of scud.
-healthcheck    Checks to see required dependencies (i.e. version control systems, CLIs for source control providers) are installed. [alias: hc]
+healthcheck    Checks to see required dependencies are installed. [alias: hc]
 
 # Useful for quickly checking scud's subcommands and options.
 help           Print this message or the help of the given subcommand(s).
@@ -263,20 +261,11 @@ help           Print this message or the help of the given subcommand(s).
 # Useful for initializing a new local repository.
 init           Initializes a local repository with a given VCS provider (currently supported: git, mercurial, breezy). [alias: i]
 
-# Useful for streamlining the entire process of creating a local repository for your given project/app/library and getting a remote repository
-# up and running in a matter of seconds. Supports a variety of different combinations of version control systems and source control providers.
-new            Creates a new local repository in the current directory with a specified VCS, if one does not already exist (local repo).
-               Additionally, initializes a corresponding remote repository with a specified source control provider. [alias: n]
-
 # Useful for pushing your local commits to the remote repository.
 push           Pushes all commits to the remote repository. [alias: ps]
 
 # Useful for pulling remote commits to your local repository.
 pull           Pulls all commits from the remote repository. [alias: pl]
-
-# Useful for quickly setting up various scud dependencies onto your local system (i.e. git, bazaar, gh, glab, etc.),
-# so you can focus your time on more important things.
-setup          Streamlines the setup process for various version control systems and source control providers. [alias: su]
 
 # Useful for staging all modified files in your local repository, making them ready to be committed.
 stage          Stages all modified files in the current local repository ensuring they are ready to be committed. [alias: s]
@@ -294,7 +283,7 @@ _NOTE: Many of scud's subcommands (where deemed appropriate) support the `--dry-
 
 <!-- TODO renovate.json -->
 
-## Similar/Related Projects
+## Similar Projects
 
 -   [cocogitto](https://crates.io/crates/cocogitto) - Cocogitto is a set of cli tools for the conventional commit and semver specifications.
 -   [Commitizen](https://github.com/commitizen-tools/commitizen) - Create committing rules for projects 🚀 auto bump versions ⬆️ and auto changelog generation 📂

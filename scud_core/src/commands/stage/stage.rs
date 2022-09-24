@@ -1,5 +1,3 @@
-use std::time::SystemTime;
-
 use colored::Colorize;
 
 use crate::{
@@ -10,10 +8,10 @@ use crate::{
     },
     diagnostics::{log_diagnostic, DiagnosticKind},
     helpers::detect_vcs,
-    logging::{general::log_execution_time, helpers::bright_yellow_backtick},
+    logging::helpers::bright_yellow_backtick,
 };
 
-pub fn stage_command(stage_options: Stage, start_time: SystemTime) {
+pub fn stage_command(stage_options: Stage) {
     if stage_options.dry_run {
         execute_stage_dry_run();
     } else if stage_options.info {
@@ -21,8 +19,6 @@ pub fn stage_command(stage_options: Stage, start_time: SystemTime) {
     } else {
         execute_stage();
     }
-
-    log_execution_time(start_time);
 }
 
 pub fn execute_stage() {

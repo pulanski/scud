@@ -1,14 +1,11 @@
-use std::time::SystemTime;
-
 use crate::{
     cli::cli::Update,
     commands::update::executors::{
         execute_update, execute_update_dry_run, execute_update_info,
     },
-    general::log_execution_time,
 };
 
-pub fn update_command(update_options: Update, start_time: SystemTime) {
+pub fn update_command(update_options: Update) {
     if update_options.dry_run {
         execute_update_dry_run();
     } else if update_options.info {
@@ -16,6 +13,4 @@ pub fn update_command(update_options: Update, start_time: SystemTime) {
     } else {
         execute_update();
     }
-
-    log_execution_time(start_time);
 }

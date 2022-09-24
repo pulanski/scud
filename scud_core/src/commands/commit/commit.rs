@@ -1,14 +1,8 @@
 use crate::{
-    cli::cli::{
-        Commit,
-        VCS,
-    },
+    cli::cli::{Commit, VCS},
     commands::commit::executors::{
-        execute_commit_breezy,
-        execute_commit_dry_run,
-        execute_commit_git,
-        execute_commit_info,
-        execute_commit_mercurial,
+        execute_commit_breezy, execute_commit_dry_run, execute_commit_git,
+        execute_commit_info, execute_commit_mercurial,
     },
     helpers::detect_vcs,
 };
