@@ -1,4 +1,4 @@
-/// CLI Root definition
+/// Root CLI definition
 pub mod cli;
 
 /// Definitions for the information-based

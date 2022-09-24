@@ -1,6 +1,6 @@
 [package]
 name = "scud"
-description = "The all-in-one tool for streamlining the many version control processes of your development workflow. WIP"
+description = "A tool for streamlining the many version control processes of your development workflow written with an emphasis on ease-of-use and expressive usage diagnostics. WIP"
 authors = ["Josh Kersey <pulanski12@gmail.com>"]
 license = "MIT"
 version = "0.13.0"

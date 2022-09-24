@@ -31,14 +31,11 @@ pub enum VCS {
 #[derive(Debug, Parser)]
 #[clap(name = "scud")]
 #[clap(
-    about = "A tool for streamlining the version and source control processes of \
-             your development workflow.",
-    long_about = "Scud was created to fill the gaps between the version control \
-                  processes of a typical development workflow and build upon the \
-                  features provided by similar tools in thespace (commitizen, cz \
-                  cli, etc.). The tool was created with an emphasis on user \
-                  diagnostics and performance. All commands support aliases for \
-                  more terse usage thanks to clap to further enhance overall UX."
+    about = "A tool for streamlining the version control processes of your \
+             development workflow.",
+    long_about = "A tool for streamlining the many version control processes of \
+                  your development workflow written with an emphasis on \
+                  ease-of-use and expressive usage diagnostics."
 )]
 #[clap(version)]
 pub struct Cli {

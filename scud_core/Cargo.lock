@@ -648,7 +648,7 @@ dependencies = [
 
 [[package]]
 name = "scud_core"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "clap",
  "clearscreen",

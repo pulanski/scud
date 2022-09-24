@@ -184,7 +184,7 @@ pub fn log_diagnostic(diagnostic_kind: DiagnosticKind) {
                 body.to_string().italic(),
                 "For more information, please see the scud documentation at "
                     .bright_yellow(),
-                "https://scud.dev/docs/".bright_cyan().italic()
+                "https://github.com/pulanski/scud".bright_cyan().italic()
             );
         }
         DiagnosticKind::Hint { body, command } => {
