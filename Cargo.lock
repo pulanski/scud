@@ -69,14 +69,14 @@ checksum = "fff857943da45f546682664a79488be82e69e43c1a7a2307679ab9afb3a66d2e"
 
 [[package]]
 name = "clap"
-version = "3.2.16"
+version = "3.2.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a3dbbb6653e7c55cc8595ad3e1f7be8f32aba4eb7ff7f0fd1163d4f3d137c0a9"
+checksum = "71655c45cb9845d3270c9d6df84ebe72b4dad3c2ba3f7023ad47c144e4e473a5"
 dependencies = [
  "atty",
  "bitflags",
- "clap_derive",
- "clap_lex",
+ "clap_derive 3.2.18",
+ "clap_lex 0.2.4",
  "indexmap",
  "once_cell",
  "strsim",
@@ -85,10 +85,38 @@ dependencies = [
 ]
 
 [[package]]
-name = "clap_derive"
-version = "3.2.15"
+name = "clap"
+version = "4.0.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9ba52acd3b0a5c33aeada5cdaa3267cdc7c594a98731d4268cdc1532f4264cb4"
+checksum = "2148adefda54e14492fb9bddcc600b4344c5d1a3123bd666dcb939c6f0e0e57e"
+dependencies = [
+ "atty",
+ "bitflags",
+ "clap_derive 4.0.21",
+ "clap_lex 0.3.0",
+ "once_cell",
+ "strsim",
+ "termcolor",
+]
+
+[[package]]
+name = "clap_derive"
+version = "3.2.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ea0c8bce528c4be4da13ea6fead8965e95b6073585a2f05204bd8f4119f82a65"
+dependencies = [
+ "heck",
+ "proc-macro-error",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "clap_derive"
+version = "4.0.21"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0177313f9f02afc995627906bbd8967e2be069f5261954222dac78290c2b9014"
 dependencies = [
  "heck",
  "proc-macro-error",
@@ -102,6 +130,15 @@ name = "clap_lex"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2850f2f5a82cbf437dd5af4d49848fbdfc27c157c3d010345776f952765261c5"
+dependencies = [
+ "os_str_bytes",
+]
+
+[[package]]
+name = "clap_lex"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0d4198f73e42b4936b35b5bb248d81d2b595ecb170da0bac7655c54eedfa8da8"
 dependencies = [
  "os_str_bytes",
 ]
@@ -650,7 +687,7 @@ dependencies = [
 name = "scud"
 version = "0.13.0"
 dependencies = [
- "clap",
+ "clap 4.0.26",
  "scud_core",
 ]
 
@@ -658,7 +695,7 @@ dependencies = [
 name = "scud_core"
 version = "0.13.0"
 dependencies = [
- "clap",
+ "clap 3.2.23",
  "clearscreen",
  "colored",
  "dialoguer",
@@ -781,9 +818,9 @@ dependencies = [
 
 [[package]]
 name = "textwrap"
-version = "0.15.0"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b1141d4d61095b28419e22cb0bbf02755f5e54e0526f97f1e3d1d160e60885fb"
+checksum = "222a222a5bfe1bba4a77b45ec488a741b3cb8872e5e499451fd7d0129c9c7c3d"
 
 [[package]]
 name = "thiserror"
